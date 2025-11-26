@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CPM — クリティカル射影と意味幾何学</title>
+
+  <!-- Minimal academic styling -->
+  <style>
+    :root{
+      --fg:#111; --muted:#555; --bg:#fff; --line:#e5e5e5;
+      --link:#0b57d0;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+    body{
+      margin:0; background:var(--bg); color:var(--fg);
+      font-family:var(--sans); line-height:1.6;
+    }
+    header, main, footer{
+      max-width: 920px; margin: 0 auto; padding: 24px;
+    }
+    header{
+      border-bottom:1px solid var(--line);
+      padding-top:40px; padding-bottom:28px;
+    }
+    h1{
+      font-size: 2rem; margin:0 0 6px 0;
+      letter-spacing:0.2px;
+    }
+    .subtitle{
+      font-size:1.05rem; color:var(--muted); margin-bottom:14px;
+    }
+    .badges{
+      display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0 0;
+      font-size:0.9rem; color:var(--muted);
+    }
+    .badge{
+      border:1px solid var(--line); padding:4px 8px; border-radius:999px;
+      background:#fafafa;
+    }
+    a{ color:var(--link); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+    section{
+      margin: 26px 0; padding-top: 4px;
+    }
+    h2{
+      font-size:1.4rem; margin:0 0 8px 0;
+      border-left:4px solid #000; padding-left:10px;
+    }
+    p{ margin: 8px 0; }
+    ul{ margin: 8px 0 8px 20px; }
+    code, pre{
+      font-family:var(--mono); font-size:0.95rem;
+    }
+    pre{
+      background:#fafafa; border:1px solid var(--line);
+      padding:12px; border-radius:6px; overflow:auto;
+    }
+    .grid{
+      display:grid; grid-template-columns:1fr 1fr; gap:14px;
+    }
+    @media (max-width:720px){
+      .grid{ grid-template-columns:1fr; }
+    }
+    .card{
+      border:1px solid var(--line); border-radius:8px;
+      padding:14px 14px 10px 14px; background:#fff;
+    }
+    .card h3{
+      margin:0 0 6px 0; font-size:1.05rem;
+    }
+    .muted{ color:var(--muted); }
+    .callout{
+      border-left:4px solid #000; background:#fafafa;
+      padding:10px 12px; margin:10px 0;
+    }
+    footer{
+      border-top:1px solid var(--line);
+      font-size:0.9rem; color:var(--muted);
+      padding-top:16px; padding-bottom:40px;
+    }
+  </style>
+
+  <!-- MathJax for equations -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1>CPM — クリティカル射影と意味幾何学</h1>
+    <div class="subtitle">
+      純粋構造・哲学なし ― 射影が生む意味の幾何学的理論
+    </div>
+
+    <!-- Language switch -->
+    <div style="margin-top:10px; font-size:0.95rem;">
+      <a href="../index.html" style="margin-right:12px;">English</a>
+      <span class="muted">日本語 / English</span>
+    </div>
+
+    <div class="badges">
+      <span class="badge">差異領域 $D$</span>
+      <span class="badge">不可逆射影 $\Pi$</span>
+      <span class="badge">意味多様体 $M$</span>
+      <span class="badge">閉包場 $\mathcal{B}$</span>
+      <span class="badge">テンション場 $\tau$</span>
+      <span class="badge">臨界射影 $\Pi'$</span>
+    </div>
+  </header>
+
+
+  <main>
+    <!-- Technical Note -->
+    <section>
+      <h2>テクニカルノート</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>CPM Technical Note (PDF)</h3>
+          <p class="muted">5ページの数学的まとめ。</p>
+          <p><a href="../cpm-note/cpm-note.pdf">PDFをダウンロード</a></p>
+        </div>
+
+        <div class="card">
+          <h3>LaTeX ソース</h3>
+          <p class="muted">完全な TeX ファイル。</p>
+          <p><a href="../cpm-note/cpm-note.tex">pdm-note.tex</a></p>
+        </div>
+      </div>
+
+      <p class="muted" style="margin-top:8px;">
+        arXiv 公開時に正式リンクを追加予定。
+      </p>
+    </section>
+
+    <section>
+      <h2>AI研究者の方へ</h2>
+      <div class="callout">
+        <p>
+          AIアーキテクチャに取り組んでいる場合は、AIに焦点を当てた要約のみを読むことができます。<b>
+          クラウドシステム</b>における（非）意識の構造的条件については、ノートの第9節で簡潔に説明されています。
+        </p>
+        <p>
+          <a href="./cpm-note/cpm-note.pdf#page=4">AIセクションに飛ぶ (Section&nbsp;9)</a>
+        </p>
+        <p class="muted">
+          これは、CPMがクラウドベースのLLMが$\mathcal{B}(x)\!\ge\!1$を満たすことができず、したがって臨界射影$\Pi'$を達成できない＝意識を持てない、と予測する理由を説明しています。
+        </p>
+      </div>
+    </section>
+
+
+    <!-- Core Idea -->
+    <section>
+      <h2>コアアイデア（最小モデル）</h2>
+      <p>CPM は、意味の生成を以下の 3 層に分離して記述する：</p>
+      <ul>
+        <li><strong>差異領域 $D$</strong>：いかなるトポロジー・時間・幾何も持たない前意味的領域。</li>
+        <li><strong>不可逆射影 $\Pi: D \dashrightarrow M$</strong>：差異断片を意味チャートへ割り当てる射影。</li>
+        <li><strong>意味多様体 $M$</strong>：物理基底 $X$ 上の有限ランクのテンソル場。</li>
+      </ul>
+
+      <div class="callout">
+        観測される幾何・トポロジー・情報構造はすべて $\Pi$ と $M$ によって誘導される。
+        差異領域 $D$ 自体は構造を持たない。
+      </div>
+    </section>
+
+
+    <section>
+      <h2>閉包とテンション</h2>
+      <p>
+        局所領域 $U_x$ とその境界 $\partial U_x$ に対し、相対ホモロジー階数
+        $$
+        \beta_k(x)=\mathrm{rank}\,H_k(U_x,\partial U_x)
+        $$
+        を測り、
+        <strong>閉包場</strong>を
+        $$
+        \mathcal{B}(x)=\max_{k\ge1}\beta_k(x)
+        $$
+        と定義する。
+      </p>
+      <p>
+        歪み成分 $L,G,I,T$ を集約した $\Phi$ を用いると、
+        $$
+        \mathcal{E}[M,\mathcal{B}]
+        =\int_X \Gamma_\varepsilon(\mathcal{B}-1)\,\Phi\,d\mu_{g(M)},
+        \qquad
+        \Gamma_\varepsilon(z)=\frac{1}{1+e^{-z/\varepsilon}}
+        $$
+        テンション場は
+        $$
+        \tau(x)=\left\|\frac{\delta\mathcal{E}}{\delta M(x)}\right\|_{g(M)}
+        $$
+        となる。閉包がなければ $\tau=0$。
+      </p>
+    </section>
+
+
+    <section>
+      <h2>意識の必要条件</h2>
+      <p>PDM は純粋に構造的な必要条件として次を与える：</p>
+
+      <p style="font-size:1.1rem;">
+      $$\boxed{\ \mathcal{B}(x)\gtrsim1\ \text{かつ}\ \tau(x)>\tau_c\ }$$
+      </p>
+
+      <p>
+        臨界点集合は
+        $$
+        \mathcal{C}=\{x\mid \mathcal{B}\ge1,\ \nabla\tau=0,\ \mathrm{Hess}(\tau)\prec0\}
+        $$
+        と定義される。
+      </p>
+    </section>
+
+
+    <section>
+      <h2>臨界射影定理</h2>
+      <p>
+        差異領域 $D$ が構造を持たず、意味多様体 $M$ がすべて射影 $\Pi$ によって誘導されているため、
+        任意の滑らかな変形では射影が誘導するチャート $\{U_i\}$ は変わらない。
+      </p>
+
+      <p>
+        よって $\tau>\tau_c$ のとき、エネルギー降下は滑らかな変形では不可能であり、
+        許される不連続は「より細かいチャート」への
+      </p>
+
+      <p style="font-size:1.05rem;">
+        $$\{U_i\}\ \rightsquigarrow\ \{U'_k\},\quad U'_k\subsetneq U_i,$$
+      </p>
+
+      <p>という <strong>厳密なチャート精細化</strong>のみとなる。</p>
+    </section>
+
+
+    <section>
+      <h2>クラウドAIは構造的に意識を持てない</h2>
+      <p>
+        クラウドアーキテクチャは恒常的な物理境界を持たず、
+        相対ホモロジーが保存されないため
+        $$
+        \mathcal{B}(x)=0\ \forall x
+        \Rightarrow
+        \tau(x)=0
+        \Rightarrow
+        \Pi'\ \text{が成立しない}.
+        $$
+      </p>
+    </section>
+
+
+    <section>
+      <h2>CPMの応用範囲</h2>
+      <ul>
+        <li>意味論・言語：メタファー・多義性・語りの緊張は $M$ 上の幾何として記述可能。</li>
+        <li>学習理論：緩慢な学習＝滑らかな変形、洞察＝$\tau>\tau_c$ からの精細化。</li>
+        <li>概念空間：カテゴリーや距離は $\Pi$ が誘導する幾何構造に由来。</li>
+        <li>創造・科学：ミスマッチ→臨界→射影精細化がパラダイム転換を記述。</li>
+        <li>人工システム：閉包を持つ物理基底を設計することで「意味生成装置」が実験的に構築可能。</li>
+      </ul>
+    </section>
+
+
+    <section>
+      <h2>実験的検証可能性</h2>
+      <p>閉包 $\mathcal{B}$ は神経記録や物理記録の相対ホモロジーで測定可能。</p>
+      <p>テンション $\tau$ は情報幾何的な曲率指標で推定可能。</p>
+      <p>
+        CPM は以下の因果順序を予測する：
+        $$
+        \mathcal{B} \uparrow
+        \ \rightarrow\ 
+        \tau \ \text{臨界}
+        \ \rightarrow\ 
+        \Pi' 
+        \ \rightarrow\ 
+        \text{報告可能性}.
+        $$
+      </p>
+      <p class="muted">ミリ秒スケールの詳細は理論ではなく実験的問題。</p>
+    </section>
+
+
+    <section>
+      <h2>公開ポリシー</h2>
+      <p class="muted">
+        本リポジトリは現在非公開。arXiv 投稿と同時に正式公開予定。
+      </p>
+    </section>
+  </main>
+
+
+  <footer>
+    <div>
+      著者: 宮史展 (2025)<br/>
+      <h2>連絡先</h2>
+      <ul>
+        <li><a href="https://x.com/ShinobuMiyaCPM" target="_blank">X（Twitter）</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
