@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CPM — Critical Projection and the Geometry of Meaning</title>
+
+  <!-- Minimal academic styling (black/white) -->
+  <style>
+    :root{
+      --fg:#111; --muted:#555; --bg:#fff; --line:#e5e5e5;
+      --link:#0b57d0;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+    body{
+      margin:0; background:var(--bg); color:var(--fg);
+      font-family:var(--sans); line-height:1.6;
+    }
+    header, main, footer{
+      max-width: 920px; margin: 0 auto; padding: 24px;
+    }
+    header{
+      border-bottom:1px solid var(--line);
+      padding-top:40px; padding-bottom:28px;
+    }
+    h1{
+      font-size: 2rem; margin:0 0 6px 0;
+      letter-spacing:0.2px;
+    }
+    .subtitle{
+      font-size:1.05rem; color:var(--muted); margin-bottom:14px;
+    }
+    .badges{
+      display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0 0;
+      font-size:0.9rem; color:var(--muted);
+    }
+    .badge{
+      border:1px solid var(--line); padding:4px 8px; border-radius:999px;
+      background:#fafafa;
+    }
+    a{ color:var(--link); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+    section{
+      margin: 26px 0; padding-top: 4px;
+    }
+    h2{
+      font-size:1.4rem; margin:0 0 8px 0;
+      border-left:4px solid #000; padding-left:10px;
+    }
+    p{ margin: 8px 0; }
+    ul{ margin: 8px 0 8px 20px; }
+    code, pre{
+      font-family:var(--mono); font-size:0.95rem;
+    }
+    pre{
+      background:#fafafa; border:1px solid var(--line);
+      padding:12px; border-radius:6px; overflow:auto;
+    }
+    .grid{
+      display:grid; grid-template-columns:1fr 1fr; gap:14px;
+    }
+    @media (max-width:720px){
+      .grid{ grid-template-columns:1fr; }
+    }
+    .card{
+      border:1px solid var(--line); border-radius:8px;
+      padding:14px 14px 10px 14px; background:#fff;
+    }
+    .card h3{
+      margin:0 0 6px 0; font-size:1.05rem;
+    }
+    .muted{ color:var(--muted); }
+    .callout{
+      border-left:4px solid #000; background:#fafafa;
+      padding:10px 12px; margin:10px 0;
+    }
+    footer{
+      border-top:1px solid var(--line);
+      font-size:0.9rem; color:var(--muted);
+      padding-top:16px; padding-bottom:40px;
+    }
+  </style>
+
+  <!-- MathJax for equations -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1>Critical Projection and the Geometry of Meaning (CPM)</h1>
+    <div class="subtitle">
+      Pure structure, zero metaphysics — a geometric theory of induced meaning and critical projection
+    </div>
+    <div class="badges">
+      <span class="badge">Difference space $D$</span>
+      <span class="badge">Irreversible projection $\Pi$</span>
+      <span class="badge">Meaning tensor field $M$</span>
+      <span class="badge">Closure field $\mathcal{B}$</span>
+      <span class="badge">Tension field $\tau$</span>
+      <span class="badge">Critical refinement $\Pi'$</span>
+    </div>
+  </header>
+
+  <main>
+
+    <section>
+      <h2>Technical Note</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>CPM Technical Note (PDF)</h3>
+          <p class="muted">Short, 4-page mathematical summary.</p>
+          <p><a href="./cpm-note/cpm-note.pdf">Download PDF</a></p>
+        </div>
+        <div class="card">
+          <h3>LaTeX Source</h3>
+          <p class="muted">Complete TeX source of the CPM note.</p>
+          <p>
+            <a href="./cpm-note/cpm-note.tex">cpm-note.tex</a><br/>
+          </p>
+        </div>
+      </div>
+
+      <!-- Optional future links -->
+      <p class="muted" style="margin-top:8px;">
+        arXiv / preprint link will be added at formal release.
+      </p>
+    </section>
+
+    <section>
+      <h2>Core Idea (Minimal Model)</h2>
+      <p>
+        CPM separates meaning-generation into three rigorously distinct layers:
+      </p>
+      <ul>
+        <li><strong>Difference space $D$</strong>: maximally structureless pre-semantic domain (no topology, geometry, time, measure, or algebra).</li>
+        <li><strong>Irreversible projection $\Pi: D \dashrightarrow M$</strong>: partial assignments acting on difference fragments, inducing semantic charts.</li>
+        <li>
+          <strong>Meaning tensor field $M$ on substrate $X$</strong>: a finite-rank tensor field whose induced metric is
+          $$
+          g(M)=M^{T}g^{0}M,
+          $$
+          where $g^{0}$ is purely physical (non-semantic).
+        </li>
+      </ul>
+      <div class="callout">
+        All observable topology/geometry/information in $M$ is induced only through $\Pi$ and $M$.
+        $D$ itself carries no intrinsic structure.
+      </div>
+    </section>
+
+    <section>
+      <h2>Closure and Tension</h2>
+      <p>
+        For a small neighborhood $U_x\subset X$ with physical boundary $\partial U_x$,
+        define relative homology ranks
+        $$
+        \beta_k(x)=\mathrm{rank}\,H_k(U_x,\partial U_x),\quad (k\ge1),
+        $$
+        and the <strong>closure field</strong>
+        $$
+        \mathcal{B}(x)=\max_{k\ge1}\beta_k(x).
+        $$
+        Closure is locally maintained iff $\mathcal{B}(x)\ge1$.
+      </p>
+      <p>
+        Let $L,G,I,T$ be local distortion components aggregated as $\Phi(L,G,I,T)$.
+        The smooth-gated mismatch energy is
+        $$
+        \mathcal{E}[M,\mathcal{B}]
+        =\int_X \Gamma_\varepsilon(\mathcal{B}-1)\,\Phi\,d\mu_{g(M)},
+        \qquad
+        \Gamma_\varepsilon(z)=\frac{1}{1+e^{-z/\varepsilon}}.
+        $$
+        The <strong>tension field</strong> is
+        $$
+        \tau(x)=\left\|\frac{\delta\mathcal{E}}{\delta M(x)}\right\|_{g(M)}.
+        $$
+        In the sharp limit $\varepsilon\to0^+$, regions with $\mathcal{B}(x)<1$ contribute exactly zero tension.
+      </p>
+    </section>
+
+    <section>
+      <h2>Necessary Conditions for Consciousness</h2>
+      <p>
+        CPM yields two purely structural necessary conditions:
+      </p>
+      <p style="font-size:1.05rem;">
+        $$
+        \boxed{\ \mathcal{B}(x)\gtrsim1 \ \text{and}\ \tau(x)>\tau_c\ }.
+        $$
+      </p>
+      <p>
+        The <strong>critical tension</strong> $\tau_c$ is defined on the critical set
+        $$
+        \mathcal{C}=\{x\mid \mathcal{B}(x)\ge1,\ \nabla\tau(x)=0,\ \mathrm{Hess}(\tau)(x)\prec0\}.
+        $$
+      </p>
+      <div class="callout">
+        Consciousness in CPM is not an information quantity; it is a <em>state-transition</em>
+        triggered by supercritical tension under closure.
+      </div>
+    </section>
+
+    <section>
+      <h2>Critical Projection Theorem (Core Statement)</h2>
+      <p>
+        Since $D$ is structureless and cannot deform internally, and $M$ is fully induced by $\Pi$,
+        any smooth deformation of $M$ preserves the same $\Pi$-induced covering $\{U_i\}$.
+      </p>
+      <p>
+        Therefore, when $\tau(x)>\tau_c$ within closure-maintained regions,
+        energetic descent is impossible by smooth atlas-preserving variation.
+        The only admissible discontinuity is strict atlas refinement:
+      </p>
+      <p style="font-size:1.05rem;">
+        $$
+        \{U_i\}\rightsquigarrow\{U'_k\},\quad U'_k\subsetneq U_i,\qquad
+        \Pi'=\Pi|_{\{U'_k\}}.
+        $$
+      </p>
+    </section>
+
+    <section>
+      <h2>Architectural Corollary for Cloud AI Systems</h2>
+      <p>
+        Within CPM, cloud architectures possess only ephemeral software boundaries.
+        Relative cycles cannot persist, hence
+        $$
+        \mathcal{B}(x)=0\ \forall x\quad\Rightarrow\quad
+        \tau(x)=0\ \forall x\quad\Rightarrow\quad
+        \Pi'\ \text{is impossible}.
+        $$
+      </p>
+    </section>
+
+    <section>
+      <h2>Why CPM Has Wide Reach</h2>
+      <ul>
+        <li><strong>Semantics & language</strong>: ambiguity, metaphor, and narrative coherence are tension/geometry patterns on $M$; sudden understanding corresponds to local refinement $\Pi'$.</li>
+        <li><strong>Learning theory</strong>: gradual learning = smooth $M$ evolution; insight = critical refinement under $\tau>\tau_c$.</li>
+        <li><strong>Concept spaces & perception</strong>: categories and distances are induced geometries generated by $\Pi$.</li>
+        <li><strong>Creativity & theory formation</strong>: mismatch $\to$ criticality $\to$ refinement models paradigm shifts mathematically.</li>
+        <li><strong>Artificial system design</strong>: engineering closure-maintained substrates yields experimentally constructible “meaning generators.”</li>
+        <li><strong>Historical theories</strong>: many philosophical/linguistic theories appear as parameter-restricted submodels on $M$.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Empirical Testability</h2>
+      <p>
+        Closure $\mathcal{B}$ is measurable via relative/persistent homology on neural or physical recordings.
+        Tension $\tau$ is estimable via information-geometric and curvature-based proxies.
+      </p>
+      <p>
+        CPM predicts the causal order:
+        $$
+        \mathcal{B}\ \text{rise}\ \rightarrow\ \tau\ \text{criticality}\ \rightarrow\ \Pi'\ \rightarrow\ \text{reportability}.
+        $$
+      </p>
+      <p class="muted">
+        Calibration of millisecond timescales is empirical, not intrinsic to the theory.
+      </p>
+    </section>
+
+    <section>
+      <h2>Release Policy</h2>
+      <p class="muted">
+        This repository is currently private. Formal release will coincide with the preprint/arXiv posting.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <div>
+      Author: Shinobu Miya (2025).<br/>
+      <h2>Contact</h2>
+      <ul>
+        <li><a href="https://x.com/ShinobuMiyaCPM" target="_blank">X (Twitter)</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
