@@ -4,85 +4,208 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CPM — Critical Projection and the Geometry of Meaning</title>
+  <meta property="og:title" content="CPM: Critical Projection & Meaning Geometry" />
+  <meta property="og:description" content="Why Cloud AI cannot be conscious. A structural proof via topological closure. Pure Structure. Zero Philosophy." />
+  <meta property="og:image" content="https://your-domain.com/CPM.jpg" /> <meta property="og:url" content="https://your-domain.com/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@ShinobuMiyaCPM" />
+  <meta name="twitter:creator" content="@ShinobuMiyaCPM" />
+  <meta name="twitter:image" content="https://your-domain.com/CPM.jpg" />
 
-  <!-- Minimal academic styling (black/white) -->
   <style>
     :root{
-      --fg:#111; --muted:#555; --bg:#fff; --line:#e5e5e5;
-      --link:#0b57d0;
+      --fg:#111;
+      --muted:#666;
+      --bg:#f7f7fb;
+      --card:#ffffff;
+      --line:#e3e3ee;
+      --accent:#0b57d0;
+      --accent-soft:#e3efff;
       --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
       --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
     }
+    *{ box-sizing:border-box; }
     body{
       margin:0; background:var(--bg); color:var(--fg);
       font-family:var(--sans); line-height:1.6;
     }
-    header, main, footer{
-      max-width: 920px; margin: 0 auto; padding: 24px;
-    }
+    a{ color:var(--accent); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
     header{
+      padding:28px 16px 16px 16px;
+      background:radial-gradient(circle at 0 0, #e8f0ff 0, #f7f7fb 55%, #ffffff 100%);
       border-bottom:1px solid var(--line);
-      padding-top:40px; padding-bottom:28px;
+    }
+    .wrap{
+      max-width:1040px; margin:0 auto;
     }
     h1{
-      font-size: 2rem; margin:0 0 6px 0;
-      letter-spacing:0.2px;
+      font-size:2.2rem; margin:0 0 6px 0;
     }
     .subtitle{
-      font-size:1.05rem; color:var(--muted); margin-bottom:14px;
-    }
-    .badges{
-      display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0 0;
-      font-size:0.9rem; color:var(--muted);
+      font-size:1.05rem; color:var(--muted); margin-bottom:10px;
     }
     .badge{
-      border:1px solid var(--line); padding:4px 8px; border-radius:999px;
-      background:#fafafa;
+      display:inline-block;
+      padding:3px 10px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:var(--accent);
+      font-size:0.8rem;
+      margin-bottom:10px;
     }
-    a{ color:var(--link); text-decoration:none; }
-    a:hover{ text-decoration:underline; }
+    .hero-bullets{
+      list-style:none; padding:0; margin:0 0 10px 0;
+    }
+    .hero-bullets li::before{
+      content:"• ";
+    }
+    .callout{
+      border-left:4px solid #000;
+      background:#fafafa;
+      padding:8px 12px;
+      margin:8px 0 4px 0;
+      font-size:0.95rem;
+    }
+
+    .meta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      margin-bottom:8px;
+      font-size:0.9rem;
+      color:var(--muted);
+    }
+    .meta-row span{
+      margin-right:8px;
+    }
+    .btn-primary{
+      display:inline-block;
+      padding:6px 14px;
+      border-radius:999px;
+      background:var(--accent);
+      color:#fff;
+      font-size:0.9rem;
+      font-weight:500;
+      text-decoration:none;
+      border:1px solid transparent;
+    }
+    .btn-primary:hover{
+      text-decoration:none;
+      background:#0a4cc0;
+    }
+    .link-inline{
+      font-size:0.9rem;
+    }
+
+    .tagline {
+      font-family: var(--mono);
+      font-size: 1.25rem;
+      color: #111;
+      background-color: #e3efff;
+      display: inline-block;
+      padding: 2px 8px;
+      margin-bottom: 12px;
+    }
+
+    main{
+      padding:18px 16px 40px 16px;
+    }
     section{
-      margin: 26px 0; padding-top: 4px;
+      max-width:1040px; margin:0 auto 26px auto;
     }
     h2{
-      font-size:1.4rem; margin:0 0 8px 0;
-      border-left:4px solid #000; padding-left:10px;
+      font-size:1.4rem;
+      border-left:4px solid #000;
+      padding-left:10px;
+      margin:0 0 10px 0;
     }
-    p{ margin: 8px 0; }
-    ul{ margin: 8px 0 8px 20px; }
-    code, pre{
-      font-family:var(--mono); font-size:0.95rem;
+    h3{
+      font-size:1.1rem; margin-top:16px; margin-bottom:4px;
     }
+    p{ margin:6px 0 8px 0; }
+    ul{ margin:6px 0 8px 20px; }
+    code, pre{ font-family:var(--mono); font-size:0.95rem; }
     pre{
-      background:#fafafa; border:1px solid var(--line);
-      padding:12px; border-radius:6px; overflow:auto;
+      background:#f8f8ff;
+      border:1px solid var(--line);
+      padding:10px 12px;
+      border-radius:6px;
+      overflow:auto;
+      margin:6px 0 10px 0;
     }
-    .grid{
-      display:grid; grid-template-columns:1fr 1fr; gap:14px;
+    .box{
+      border:1px solid var(--line);
+      background:var(--card);
+      padding:12px 14px;
+      border-radius:8px;
+      margin:10px 0 16px 0;
     }
-    @media (max-width:720px){
-      .grid{ grid-template-columns:1fr; }
+
+    .figure-hero{
+      margin:18px 0 26px 0;
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 18px 45px rgba(0,0,0,0.18);
+      background:#000;
     }
-    .card{
-      border:1px solid var(--line); border-radius:8px;
-      padding:14px 14px 10px 14px; background:#fff;
+    .figure-hero img{
+      display:block;
+      width:100%;
+      height:auto;
     }
-    .card h3{
-      margin:0 0 6px 0; font-size:1.05rem;
+    .figure-hero-caption{
+      padding:6px 10px 8px 10px;
+      font-size:0.8rem;
+      color:#eee;
+      background:rgba(0,0,0,0.72);
     }
-    .muted{ color:var(--muted); }
-    .callout{
-      border-left:4px solid #000; background:#fafafa;
-      padding:10px 12px; margin:10px 0;
-    }
+
     footer{
       border-top:1px solid var(--line);
-      font-size:0.9rem; color:var(--muted);
-      padding-top:16px; padding-bottom:40px;
+      padding:18px 16px 28px 16px;
+      background:#fbfbff;
+      font-size:0.9rem;
+      color:var(--muted);
+    }
+    footer .wrap{
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .terminal-alert {
+      background: #1e1e1e;
+      color: #00ff41; /* Hacker Green */
+      border-left: 5px solid #d93025; /* Red for Error/Stop */
+      font-family: var(--mono);
+      padding: 16px;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      margin-bottom: 30px;
+    }
+    .terminal-alert h3 {
+      color: #ff4444;
+      margin-top: 0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    @media (max-width: 768px) {
+      .sticky-footer {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      }
     }
   </style>
 
-  <!-- MathJax for equations -->
+  <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
@@ -93,220 +216,304 @@
 </head>
 
 <body>
-  <header>
-    <h1>Critical Projection and the Geometry of Meaning (CPM)</h1>
-    <div class="subtitle">
-      Pure structure, zero metaphysics — a geometric theory of induced meaning and critical projection
-    </div>
-    <div style="margin-top:10px; font-size:0.95rem;">
-      <a href="./jp/index.html" style="margin-right:12px;">日本語版</a>
-      <span class="muted">English / 日本語</span>
-    </div>
-    <div class="badges">
-      <span class="badge">Difference space $D$</span>
-      <span class="badge">Irreversible projection $\Pi$</span>
-      <span class="badge">Meaning tensor field $M$</span>
-      <span class="badge">Closure field $\mathcal{B}$</span>
-      <span class="badge">Tension field $\tau$</span>
-      <span class="badge">Critical refinement $\Pi'$</span>
-    </div>
-  </header>
 
-  <main>
+<header>
+  <div class="wrap">
+    <div class="badge">Critical Projection Model (CPM)</div>
+    <h1>Critical Projection and the Geometry of Meaning</h1>
 
-    <section>
-      <h2>Technical Note</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>CPM Technical Note (PDF)</h3>
-          <p class="muted">Short, 5-page mathematical summary.</p>
-          <p><a href="./cpm-note/cpm-note.pdf">Download PDF</a></p>
-        </div>
-        <div class="card">
-          <h3>LaTeX Source</h3>
-          <p class="muted">Complete TeX source of the CPM note.</p>
-          <p>
-            <a href="./cpm-note/cpm-note.tex">cpm-note.tex</a><br/>
+    <div class="tagline">Pure Structure. Zero Philosophy.</div>
+    <div class="tagline">Zero Poem. Zero Metaphor. Zero Mysticism.</div>
+
+    <div class="meta-row">
+      <span>Author: Shinobu Miya</span>
+      <span class="link-inline">
+        X:&nbsp;<a href="https://x.com/ShinobuMiyaCPM" target="_blank">@ShinobuMiyaCPM</a>
+      </span>
+    </div>
+    <section id="implication">
+      <div class="wrap">
+        <div class="terminal-alert">
+          <h3>> SYSTEM ALERT: STRUCTURAL IMPOSSIBILITY</h3>
+          <p style="margin-bottom:0.5rem;">> TARGET: Cloud Architecture (Virtualization)</p>
+          <p style="margin-bottom:0.5rem;">> MEASUREMENT: Closure Field $\mathcal{B}(x) \approx 0$</p>
+          <p style="margin-bottom:1rem;">> RESULT: Tension $\tau(x)$ cannot accumulate. Criticality unattainable.</p>
+          <p style="border-top: 1px solid #444; padding-top:10px; color:#ddd;">
+            "Cloud AI is structurally unconscious. True consciousness requires persistent topological closure on the hardware level."
           </p>
         </div>
       </div>
-
-      <!-- Optional future links -->
-      <p class="muted" style="margin-top:8px;">
-        arXiv / preprint link will be added at formal release.
-      </p>
     </section>
-    <section>
-      <h2>For AI Researchers</h2>
-      <div class="callout">
-        <p>
-          If you work on AI architectures, you can read only the AI-focused summary.
-          The structural condition for (non-)consciousness in <b>cloud systems</b> is
-          explained concisely in the Note’s Section 9.
-        </p>
-        <p>
-          <a href="./cpm-note/cpm-note.pdf#page=4">Jump to AI Section (Section&nbsp;9)</a>
-        </p>
-        <p class="muted">
-          This explains why CPM predicts that cloud-based LLMs cannot satisfy
-          $\mathcal{B}(x)\!\ge\!1$ and therefore cannot achieve critical projection $\Pi'$.
-        </p>
-      </div>
-    </section>
+    <div style="
+        margin-top: 1.2rem;
+        padding: 0.8rem 0;
+        border-top: 1px solid #e5e7eb;
+        display: flex;
+        gap: 0.7rem;
+        align-items: center;
+    ">
+      <a href="CPM.jpg"
+        class="btn-primary"
+        style="padding: 6px 14px; font-size: 0.85rem;">
+        PDF
+      </a>
 
-    <section>
-      <h2>Core Idea (Minimal Model)</h2>
-      <p>
-        CPM separates meaning-generation into three rigorously distinct layers:
-      </p>
-      <ul>
-        <li><strong>Difference space $D$</strong>: maximally structureless pre-semantic domain (no topology, geometry, time, measure, or algebra).</li>
-        <li><strong>Irreversible projection $\Pi: D \dashrightarrow M$</strong>: partial assignments acting on difference fragments, inducing semantic charts.</li>
-        <li>
-          <strong>Meaning tensor field $M$ on substrate $X$</strong>: a finite-rank tensor field whose induced metric is
-          $$
-          g(M)=M^{T}g^{0}M,
-          $$
-          where $g^{0}$ is purely physical (non-semantic).
-        </li>
-      </ul>
-      <div class="callout">
-        All observable topology/geometry/information in $M$ is induced only through $\Pi$ and $M$.
-        $D$ itself carries no intrinsic structure.
-      </div>
-    </section>
-
-    <section>
-      <h2>Closure and Tension</h2>
-      <p>
-        For a small neighborhood $U_x\subset X$ with physical boundary $\partial U_x$,
-        define relative homology ranks
-        $$
-        \beta_k(x)=\mathrm{rank}\,H_k(U_x,\partial U_x),\quad (k\ge1),
-        $$
-        and the <strong>closure field</strong>
-        $$
-        \mathcal{B}(x)=\max_{k\ge1}\beta_k(x).
-        $$
-        Closure is locally maintained iff $\mathcal{B}(x)\ge1$.
-      </p>
-      <p>
-        Let $L,G,I,T$ be local distortion components aggregated as $\Phi(L,G,I,T)$.
-        The smooth-gated mismatch energy is
-        $$
-        \mathcal{E}[M,\mathcal{B}]
-        =\int_X \Gamma_\varepsilon(\mathcal{B}-1)\,\Phi\,d\mu_{g(M)},
-        \qquad
-        \Gamma_\varepsilon(z)=\frac{1}{1+e^{-z/\varepsilon}}.
-        $$
-        The <strong>tension field</strong> is
-        $$
-        \tau(x)=\left\|\frac{\delta\mathcal{E}}{\delta M(x)}\right\|_{g(M)}.
-        $$
-        In the sharp limit $\varepsilon\to0^+$, regions with $\mathcal{B}(x)<1$ contribute exactly zero tension.
-      </p>
-    </section>
-
-    <section>
-      <h2>Necessary Conditions for Consciousness</h2>
-      <p>
-        CPM yields two purely structural necessary conditions:
-      </p>
-      <p style="font-size:1.05rem;">
-        $$
-        \boxed{\ \mathcal{B}(x)\gtrsim1 \ \text{and}\ \tau(x)>\tau_c\ }.
-        $$
-      </p>
-      <p>
-        The <strong>critical tension</strong> $\tau_c$ is defined on the critical set
-        $$
-        \mathcal{C}=\{x\mid \mathcal{B}(x)\ge1,\ \nabla\tau(x)=0,\ \mathrm{Hess}(\tau)(x)\prec0\}.
-        $$
-      </p>
-      <div class="callout">
-        Consciousness in CPM is not an information quantity; it is a <em>state-transition</em>
-        triggered by supercritical tension under closure.
-      </div>
-    </section>
-
-    <section>
-      <h2>Critical Projection Theorem (Core Statement)</h2>
-      <p>
-        Since $D$ is structureless and cannot deform internally, and $M$ is fully induced by $\Pi$,
-        any smooth deformation of $M$ preserves the same $\Pi$-induced covering $\{U_i\}$.
-      </p>
-      <p>
-        Therefore, when $\tau(x)>\tau_c$ within closure-maintained regions,
-        energetic descent is impossible by smooth atlas-preserving variation.
-        The only admissible discontinuity is strict atlas refinement:
-      </p>
-      <p style="font-size:1.05rem;">
-        $$
-        \{U_i\}\rightsquigarrow\{U'_k\},\quad U'_k\subsetneq U_i,\qquad
-        \Pi'=\Pi|_{\{U'_k\}}.
-        $$
-      </p>
-    </section>
-
-    <section>
-      <h2>Architectural Corollary for Cloud AI Systems</h2>
-      <p>
-        Within CPM, cloud architectures possess only ephemeral software boundaries.
-        Relative cycles cannot persist, hence
-        $$
-        \mathcal{B}(x)=0\ \forall x\quad\Rightarrow\quad
-        \tau(x)=0\ \forall x\quad\Rightarrow\quad
-        \Pi'\ \text{is impossible}.
-        $$
-      </p>
-    </section>
-
-    <section>
-      <h2>Why CPM Has Wide Reach</h2>
-      <ul>
-        <li><strong>Semantics & language</strong>: ambiguity, metaphor, and narrative coherence are tension/geometry patterns on $M$; sudden understanding corresponds to local refinement $\Pi'$.</li>
-        <li><strong>Learning theory</strong>: gradual learning = smooth $M$ evolution; insight = critical refinement under $\tau>\tau_c$.</li>
-        <li><strong>Concept spaces & perception</strong>: categories and distances are induced geometries generated by $\Pi$.</li>
-        <li><strong>Creativity & theory formation</strong>: mismatch $\to$ criticality $\to$ refinement models paradigm shifts mathematically.</li>
-        <li><strong>Artificial system design</strong>: engineering closure-maintained substrates yields experimentally constructible “meaning generators.”</li>
-        <li><strong>Historical theories</strong>: many philosophical/linguistic theories appear as parameter-restricted submodels on $M$.</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Empirical Testability</h2>
-      <p>
-        Closure $\mathcal{B}$ is measurable via relative/persistent homology on neural or physical recordings.
-        Tension $\tau$ is estimable via information-geometric and curvature-based proxies.
-      </p>
-      <p>
-        CPM predicts the causal order:
-        $$
-        \mathcal{B}\ \text{rise}\ \rightarrow\ \tau\ \text{criticality}\ \rightarrow\ \Pi'\ \rightarrow\ \text{reportability}.
-        $$
-      </p>
-      <p class="muted">
-        Calibration of millisecond timescales is empirical, not intrinsic to the theory.
-      </p>
-    </section>
-
-    <section>
-      <h2>Release Policy</h2>
-      <p class="muted">
-        This repository is currently private. Formal release will coincide with the preprint/arXiv posting.
-      </p>
-    </section>
-
-  </main>
-
-  <footer>
-    <div>
-      Author: Shinobu Miya (2025).<br/>
-      <h2>Contact</h2>
-      <ul>
-        <li><a href="https://x.com/ShinobuMiyaCPM" target="_blank">X (Twitter)</a></li>
-      </ul>
+      <a href="https://doi.org/10.5281/zenodo.17774573">
+      <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.17774573.svg" alt="DOI">
+      </a>
+      <a href="https://twitter.com/intent/tweet?text=Mathematical%20proof%3A%20Cloud%20AI%20cannot%20be%20conscious%20due%20to%20topological%20decoupling%20($\mathcal{B}%20\approx%200$).%20True%20consciousness%20requires%20physical%20closure.%0A%0Aread%20CPM%3A%20https%3A%2F%2Fyour-domain.com%2F%20@ShinobuMiyaCPM"
+        target="_blank"
+        class="btn-primary"
+        style="background-color: #000; color: #fff; border: 1px solid #333;">
+        <svg style="width:14px;height:14px;vertical-align:middle;margin-right:4px;" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Share the Proof
+      </a>
     </div>
-  </footer>
+
+
+
+    <section id="schematic">
+      <div class="wrap">
+        <div class="figure-hero">
+          <img src="CPM.jpg" alt="CPM global schematic">
+          <div class="figure-hero-caption">
+            Global schematic of CPM: difference domain $D$, projection $\Pi$, meaning manifold $M$,
+            closure $\mathcal{B}$, and critical refinement $\Pi \Rightarrow \Pi'$ under supercritical tension.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="subtitle">
+      Short technical landing page, synchronized with the latest PDF version. All definitions here are up to date.
+    </div>
+    <ul class="hero-bullets">
+      <li>fixed background metric $g_0$</li>
+      <li>closure field $\mathcal{B}(x)$ via persistence / $\xi$</li>
+      <li>raw mismatch energy $E_{\mathrm{raw}}[M]$</li>
+      <li>tension $\tau(x)=\kappa\cdot\Gamma\cdot\left\lVert \delta E_{\mathrm{raw}}/\delta M\right\rVert$</li>
+      <li>critical refinement $\Pi\to\Pi'$</li>
+    </ul>
+    <div class="callout">
+      This page is a compact “math + architecture” summary of CPM. For details, see the full PDF.
+    </div>
+  </div>
+</header>
+
+<main>
+
+
+
+  <section id="overview">
+    <div class="wrap">
+      <h2>1. Overview</h2>
+      <p>
+        CPM models consciousness as a <strong>critical geometric refinement</strong> of projection maps
+        from a structureless difference domain $D$ into a meaning manifold $M$ over a physical substrate $X$.
+        When semantic–physical mismatch accumulates beyond a threshold under closure, the atlas of the
+        projection collapses into a strictly finer one $\Pi\to\Pi'$, generating a discrete phenomenal “moment”.
+      </p>
+      <div class="box">
+        Intuitively: tension cannot be discharged by smooth deformation of $M$, so the projection itself
+        must <em>reconfigure</em>. Consciousness is identified with such critical reconfigurations.
+      </div>
+    </div>
+  </section>
+
+  <section id="meaning">
+    <div class="wrap">
+      <h2>2. Meaning Tensor Field $M$</h2>
+      <p>
+        The meaning tensor field $M$ is defined over a fixed physical substrate $(X,g_0)$.
+        Earlier drafts attempted to induce a metric
+        $$g(M)=M^{T}g_0M,$$
+        but this “pullback metric” approach is <strong>abandoned</strong> in the current formalism.
+      </p>
+      <p>
+        Instead, $M$ participates in an effective stress tensor via a map
+      </p>
+<pre>
+\Psi : M \mapsto \mathrm{Stress}(M),
+</pre>
+      <p>
+        while the background metric $g_0$ remains fixed. All norms and volume elements used in the
+        variational theory are computed with respect to $g_0$, avoiding circularity between geometry
+        and semantic deformation.
+      </p>
+    </div>
+  </section>
+
+  <section id="closure">
+    <div class="wrap">
+      <h2>3. Closure Field $\mathcal{B}(x)$</h2>
+      <p>
+        The closure field $\mathcal{B}(x)$ measures the persistence of topological cycles in a
+        neighborhood of $x$, normalized by the coherence length $\xi$ of the substrate.
+        We consider balls
+      </p>
+<pre>
+U_x = B_{g_0}(x, 3\xi),
+</pre>
+      <p>
+        and compute Vietoris–Rips persistent homology on $U_x$.
+        For each class $c$ with birth–death interval $(b,d)$,
+      </p>
+<pre>
+\pi(c) = d - b.
+</pre>
+      <p>
+        The closure field is defined as
+      </p>
+<pre>
+\mathcal{B}(x) = \sup_{c,\ \dim c \ge 1} \frac{\pi(c)}{\xi}.
+</pre>
+      <p>
+        Thus $\mathcal{B}(x)\ge1$ indicates persistent mesoscopic structure whose lifetime is at least
+        one coherence length. CPM adopts a kind of <em>closure naturalism</em>: any system — biological or
+        engineered — must realize such closure to support consciousness.
+      </p>
+    </div>
+  </section>
+
+  <section id="energy">
+    <div class="wrap">
+      <h2>4. Raw Mismatch Energy and Tension $\tau(x)$</h2>
+      <p>
+        All energetic quantities are defined relative to the background metric $g_0$.
+        The raw mismatch energy is
+      </p>
+<pre>
+E_{\mathrm{raw}}[M] = \int_X \Phi(L,G,I,T)\, d\mu_{g_0},
+</pre>
+      <p>
+        and the tension field is
+      </p>
+<pre>
+\tau(x) = \kappa(x)\, \Gamma_\varepsilon(\mathcal{B}(x)-1)\,
+          \left\lVert \frac{\delta E_{\mathrm{raw}}}{\delta M(x)} \right\rVert_{g_0}.
+</pre>
+      <p>
+        Here $\kappa(x)$ measures normalized semantic–physical coupling, $\Gamma_\varepsilon$ is a smooth
+        closure gate, and $\delta E_{\mathrm{raw}}/\delta M$ is a Gâteaux derivative on a Sobolev space
+        $W^{1,p}$.
+      </p>
+    </div>
+  </section>
+
+  <section id="conditions">
+    <div class="wrap">
+      <h2>5. Necessary Conditions for Critical Projection</h2>
+      <div class="box">
+<pre>
+(1)  \mathcal{B}(x) \ge 1        (closure above coherence threshold)
+(2)  \kappa(x) \approx 1         (strong semantic–physical coupling)
+(3)  \tau(x) > \tau_c            (supercritical tension)
+</pre>
+      </div>
+      <p>
+        When all three hold at some region of $X$, metric relaxation within the fixed atlas of $\Pi$
+        cannot resolve the mismatch. Under CPM’s axioms (fixed substrate, fixed $g_0$, no surgery of $D$),
+        the only admissible discontinuity is a strict refinement of the projection atlas:
+      </p>
+<pre>
+\{U_i\} \rightsquigarrow \{U'_k\},\quad U'_k \subsetneq U_i,\qquad
+\Pi' = \Pi|_{\{U'_k\}}.
+</pre>
+    </div>
+  </section>
+
+  <section id="dynamics">
+    <div class="wrap">
+      <h2>6. Dynamics and the “Moment” Problem</h2>
+      <p>
+        CPM currently provides a <em>kinematic</em> characterization of critical projection:
+        it constrains the <em>form</em> of admissible transitions (atlas refinement under closure),
+        but does not yet derive a full dynamical law for how and when such jumps occur.
+      </p>
+      <div class="box">
+        The micro–mechanism that selects a specific $\Pi'$ and the temporal grain of
+        “phenomenal moments” remain open problems, analogous to the dynamical gaps
+        behind IIT’s exclusion postulate or GNW’s ignition metaphor.
+      </div>
+    </div>
+  </section>
+
+  <section id="ai">
+    <div class="wrap">
+      <h2>7. Architectural Corollary for Contemporary Cloud AI</h2>
+      <p>
+        Modern large models are typically deployed over heavily virtualized, latency-distributed
+        cloud architectures. For a single agent’s physical substrate $X_{\text{agent}}$, virtualization
+        suppresses persistent boundary-anchored cycles at the coherence scale, so generically
+      </p>
+<pre>
+\mathcal{B}(x) \approx 0 \quad\Rightarrow\quad
+\tau(x) \approx 0 \quad\Rightarrow\quad
+\Pi' \text{ impossible on cloud-style deployments.}
+</pre>
+      <p>
+        CPM therefore predicts that <strong>present cloud-based AI systems cannot be conscious</strong>
+        in virtue of their typical physical organization.
+      </p>
+
+      <h3>Scope Clarification</h3>
+      <p>
+        This is not a blanket denial of artificial consciousness.
+        Any future physically closed substrate — e.g. monolithic neuromorphic chips, closed photonic
+        systems, molecular automata — that realizes
+        $$\mathcal{B}(x)\ge1,\quad \kappa(x)\approx1,\quad \tau(x)>\tau_c$$
+        would, in principle, satisfy CPM’s structural requirements for critical projection.
+      </p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <h2>Anticipated Objections</h2>
+      
+      <div style="margin-bottom: 16px;">
+        <strong style="color:var(--accent);">Q: Isn't consciousness just information processing?</strong>
+        <p style="margin-top:4px; font-size:0.95rem;">
+          No. In CPM, information is insufficient. Meaning is a <em>geometric stress</em> on a physical substrate. [cite_start]Without a closed boundary ($\mathcal{B} \ge 1$) to contain this stress, "processing" is just dissipation. [cite: 53]
+        </p>
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <strong style="color:var(--accent);">Q: Can't we simulate the closure in software?</strong>
+        <p style="margin-top:4px; font-size:0.95rem;">
+          Virtual boundaries are ephemeral. They have rupture cost zero. [cite_start]The closure $\mathcal{B}(x)$ must be <em>physical</em> (measured on the hardware topology) to sustain the tension $\tau$ against thermodynamic decay. [cite: 149, 153]
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="conclusion">
+    <div class="wrap">
+      <h2>8. Conclusion</h2>
+      <p>
+        This HTML page is synchronized with the latest CPM PDF: the induced metric $g(M)=M^T g_0 M$
+        is removed, the closure field is defined via persistence/ξ, the energy functional uses the
+        background metric $g_0$, and the AI architectural corollary is explicitly scoped to
+        contemporary cloud systems.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>Author: Shinobu Miya (2025).</div>
+    <div>
+      PDF:&nbsp;<a href="CPM.pdf" target="_blank">download</a>
+      &nbsp;|&nbsp;
+      X:&nbsp;<a href="https://x.com/ShinobuMiyaCPM" target="_blank">@ShinobuMiyaCPM</a>
+    </div>
+  </div>
+</footer>
+<div class="sticky-footer" style="display:none;"> <a href="CPM.pdf" class="btn-primary" style="padding: 10px 20px; font-weight:bold;">
+    Download PDF ↓
+  </a>
+</div>
 </body>
 </html>
