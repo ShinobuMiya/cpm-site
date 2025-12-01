@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CPM — Critical Projection and the Geometry of Meaning</title>
+  
   <meta property="og:title" content="CPM: Critical Projection & Meaning Geometry" />
   <meta property="og:description" content="Why Cloud AI cannot be conscious. A structural proof via topological closure. Pure Structure. Zero Philosophy." />
   <meta property="og:image" content="https://shinobumiya.github.io/cpm-site/CPM.jpg" />
@@ -38,9 +39,21 @@
       padding:28px 16px 16px 16px;
       background:radial-gradient(circle at 0 0, #e8f0ff 0, #f7f7fb 55%, #ffffff 100%);
       border-bottom:1px solid var(--line);
+      position: relative;
     }
     .wrap{
       max-width:1040px; margin:0 auto;
+    }
+    .lang-switch {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      background: rgba(255,255,255,0.8);
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
     }
     h1{
       font-size:2.2rem; margin:0 0 6px 0;
@@ -129,15 +142,22 @@
     }
     p{ margin:6px 0 8px 0; }
     ul{ margin:6px 0 8px 20px; }
-    code, pre{ font-family:var(--mono); font-size:0.95rem; }
-    pre{
+    
+    /* Code blocks (non-math) */
+    code { font-family:var(--mono); font-size:0.95rem; background:#f0f0f5; padding:2px 4px; border-radius:3px; }
+    
+    /* Math Box Style - Replaces <pre> for math */
+    .math-box {
       background:#f8f8ff;
       border:1px solid var(--line);
       padding:10px 12px;
       border-radius:6px;
-      overflow:auto;
-      margin:6px 0 10px 0;
+      overflow-x:auto;
+      margin:10px 0 16px 0;
+      font-family: var(--mono);
+      color: #333;
     }
+
     .box{
       border:1px solid var(--line);
       background:var(--card);
@@ -217,7 +237,6 @@
     }
   </style>
 
-  <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
@@ -230,9 +249,10 @@
 <body>
 
 <header>
-  <div class="lang-switch" style="position: absolute; top: 20px; right: 20px; font-family: monospace; background: rgba(255,255,255,0.8); padding: 4px 8px; border-radius: 4px; border: 1px solid #ddd;">
+  <div class="lang-switch">
     <b>EN</b> | <a href="index_ja.html" style="color:#666;">JA</a>
   </div>
+
   <div class="wrap">
     <div class="badge">Critical Projection Model (CPM)</div>
     <h1>Critical Projection and the Geometry of Meaning</h1>
@@ -246,6 +266,7 @@
         X:&nbsp;<a href="https://x.com/ShinobuMiyaCPM" target="_blank">@ShinobuMiyaCPM</a>
       </span>
     </div>
+    
     <section id="implication">
       <div class="wrap">
         <div class="terminal-alert">
@@ -261,32 +282,33 @@
         </div>
       </div>
     </section>
-    <div style="
-            margin-top: 1.2rem;
-            padding: 0.8rem 0;
-            border-top: 1px solid #e5e7eb;
-            display: flex;
-            gap: 0.7rem;
-            align-items: center;
-        ">
-          <a href="CPM.pdf"
-            class="btn-primary"
-            style="padding: 6px 14px; font-size: 0.85rem;">
-            PDF
-          </a>
 
-          <a href="https://doi.org/10.5281/zenodo.17774573">
-            <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.17774573.svg" alt="DOI">
-          </a>
-          
-          <a href="https://twitter.com/intent/tweet?text=Mathematical%20proof%3A%20Cloud%20AI%20cannot%20be%20conscious%20due%20to%20topological%20decoupling%20(B%20approx%200).%20True%20consciousness%20requires%20physical%20closure.%0A%0Aread%20CPM%3A%20https%3A%2F%2Fshinobumiya.github.io%2Fcpm-site%2F%20@ShinobuMiyaCPM"
-            target="_blank"
-            class="btn-primary"
-            style="background-color: #000; color: #fff; border: 1px solid #333;">
-            <svg style="width:14px;height:14px;vertical-align:middle;margin-right:4px;" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            Share the Proof
-          </a>
-      </div>
+    <div style="
+        margin-top: 1.2rem;
+        padding: 0.8rem 0;
+        border-top: 1px solid #e5e7eb;
+        display: flex;
+        gap: 0.7rem;
+        align-items: center;
+    ">
+      <a href="CPM.pdf"
+        class="btn-primary"
+        style="padding: 6px 14px; font-size: 0.85rem;">
+        PDF
+      </a>
+
+      <a href="https://doi.org/10.5281/zenodo.17774573">
+        <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.17774573.svg" alt="DOI">
+      </a>
+      
+      <a href="https://twitter.com/intent/tweet?text=Mathematical%20proof%3A%20Cloud%20AI%20cannot%20be%20conscious%20due%20to%20topological%20decoupling%20(B%20approx%200).%20True%20consciousness%20requires%20physical%20closure.%0A%0Aread%20CPM%3A%20https%3A%2F%2Fshinobumiya.github.io%2Fcpm-site%2F%20@ShinobuMiyaCPM"
+        target="_blank"
+        class="btn-primary"
+        style="background-color: #000; color: #fff; border: 1px solid #333;">
+        <svg style="width:14px;height:14px;vertical-align:middle;margin-right:4px;" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Share the Proof
+      </a>
+    </div>
 
     <section id="schematic">
       <div class="wrap">
@@ -318,8 +340,6 @@
 
 <main>
 
-
-
   <section id="overview">
     <div class="wrap">
       <h2>1. Overview</h2>
@@ -348,9 +368,9 @@
       <p>
         Instead, $M$ participates in an effective stress tensor via a map
       </p>
-<pre>
-\Psi : M \mapsto \mathrm{Stress}(M),
-</pre>
+      <div class="math-box">
+        $$ \Psi : M \mapsto \mathrm{Stress}(M), $$
+      </div>
       <p>
         while the background metric $g_0$ remains fixed. All norms and volume elements used in the
         variational theory are computed with respect to $g_0$, avoiding circularity between geometry
@@ -367,22 +387,22 @@
         neighborhood of $x$, normalized by the coherence length $\xi$ of the substrate.
         We consider balls
       </p>
-<pre>
-U_x = B_{g_0}(x, 3\xi),
-</pre>
+      <div class="math-box">
+        $$ U_x = B_{g_0}(x, 3\xi), $$
+      </div>
       <p>
         and compute Vietoris–Rips persistent homology on $U_x$.
         For each class $c$ with birth–death interval $(b,d)$,
       </p>
-<pre>
-\pi(c) = d - b.
-</pre>
+      <div class="math-box">
+        $$ \pi(c) = d - b. $$
+      </div>
       <p>
         The closure field is defined as
       </p>
-<pre>
-\mathcal{B}(x) = \sup_{c,\ \dim c \ge 1} \frac{\pi(c)}{\xi}.
-</pre>
+      <div class="math-box">
+        $$ \mathcal{B}(x) = \sup_{c,\ \dim c \ge 1} \frac{\pi(c)}{\xi}. $$
+      </div>
       <p>
         Thus $\mathcal{B}(x)\ge1$ indicates persistent mesoscopic structure whose lifetime is at least
         one coherence length. CPM adopts a kind of <em>closure naturalism</em>: any system — biological or
@@ -398,16 +418,18 @@ U_x = B_{g_0}(x, 3\xi),
         All energetic quantities are defined relative to the background metric $g_0$.
         The raw mismatch energy is
       </p>
-<pre>
-E_{\mathrm{raw}}[M] = \int_X \Phi(L,G,I,T)\, d\mu_{g_0},
-</pre>
+      <div class="math-box">
+        $$ E_{\mathrm{raw}}[M] = \int_X \Phi(L,G,I,T)\, d\mu_{g_0}, $$
+      </div>
       <p>
         and the tension field is
       </p>
-<pre>
-\tau(x) = \kappa(x)\, \Gamma_\varepsilon(\mathcal{B}(x)-1)\,
-          \left\lVert \frac{\delta E_{\mathrm{raw}}}{\delta M(x)} \right\rVert_{g_0}.
-</pre>
+      <div class="math-box">
+        $$
+        \tau(x) = \kappa(x)\, \Gamma_\varepsilon(\mathcal{B}(x)-1)\,
+                  \left\lVert \frac{\delta E_{\mathrm{raw}}}{\delta M(x)} \right\rVert_{g_0}.
+        $$
+      </div>
       <p>
         Here $\kappa(x)$ measures normalized semantic–physical coupling, $\Gamma_\varepsilon$ is a smooth
         closure gate, and $\delta E_{\mathrm{raw}}/\delta M$ is a Gâteaux derivative on a Sobolev space
@@ -419,22 +441,23 @@ E_{\mathrm{raw}}[M] = \int_X \Phi(L,G,I,T)\, d\mu_{g_0},
   <section id="conditions">
     <div class="wrap">
       <h2>5. Necessary Conditions for Critical Projection</h2>
-      <div class="box">
-<pre>
-(1)  \mathcal{B}(x) \ge 1        (closure above coherence threshold)
-(2)  \kappa(x) \approx 1         (strong semantic–physical coupling)
-(3)  \tau(x) > \tau_c            (supercritical tension)
-</pre>
+      <div class="math-box">
+        $$
+        \begin{aligned}
+        (1) & \quad \mathcal{B}(x) \ge 1        && (\text{closure above coherence threshold}) \\
+        (2) & \quad \kappa(x) \approx 1         && (\text{strong semantic–physical coupling}) \\
+        (3) & \quad \tau(x) > \tau_c            && (\text{supercritical tension})
+        \end{aligned}
+        $$
       </div>
       <p>
         When all three hold at some region of $X$, metric relaxation within the fixed atlas of $\Pi$
         cannot resolve the mismatch. Under CPM’s axioms (fixed substrate, fixed $g_0$, no surgery of $D$),
         the only admissible discontinuity is a strict refinement of the projection atlas:
       </p>
-<pre>
-\{U_i\} \rightsquigarrow \{U'_k\},\quad U'_k \subsetneq U_i,\qquad
-\Pi' = \Pi|_{\{U'_k\}}.
-</pre>
+      <div class="math-box">
+        $$ \{U_i\} \rightsquigarrow \{U'_k\},\quad U'_k \subsetneq U_i,\qquad \Pi' = \Pi|_{\{U'_k\}}. $$
+      </div>
     </div>
   </section>
 
@@ -462,11 +485,9 @@ E_{\mathrm{raw}}[M] = \int_X \Phi(L,G,I,T)\, d\mu_{g_0},
         cloud architectures. For a single agent’s physical substrate $X_{\text{agent}}$, virtualization
         suppresses persistent boundary-anchored cycles at the coherence scale, so generically
       </p>
-<pre>
-\mathcal{B}(x) \approx 0 \quad\Rightarrow\quad
-\tau(x) \approx 0 \quad\Rightarrow\quad
-\Pi' \text{ impossible on cloud-style deployments.}
-</pre>
+      <div class="math-box">
+        $$ \mathcal{B}(x) \approx 0 \quad\Rightarrow\quad \tau(x) \approx 0 \quad\Rightarrow\quad \Pi' \text{ impossible}. $$
+      </div>
       <p>
         CPM therefore predicts that <strong>present cloud-based AI systems cannot be conscious</strong>
         in virtue of their typical physical organization.
@@ -477,7 +498,7 @@ E_{\mathrm{raw}}[M] = \int_X \Phi(L,G,I,T)\, d\mu_{g_0},
         This is not a blanket denial of artificial consciousness.
         Any future physically closed substrate — e.g. monolithic neuromorphic chips, closed photonic
         systems, molecular automata — that realizes
-        $$\mathcal{B}(x)\ge1,\quad \kappa(x)\approx1,\quad \tau(x)>\tau_c$$
+        $$ \mathcal{B}(x)\ge1,\quad \kappa(x)\approx1,\quad \tau(x)>\tau_c $$
         would, in principle, satisfy CPM’s structural requirements for critical projection.
       </p>
     </div>
