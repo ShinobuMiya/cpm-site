@@ -146,15 +146,22 @@
     }
     p{ margin:6px 0 12px 0; text-align: justify; }
     ul{ margin:6px 0 12px 20px; }
-    code, pre{ font-family:var(--mono); font-size:0.95rem; }
-    pre{
+    
+    /* Code blocks (non-math) */
+    code { font-family:var(--mono); font-size:0.95rem; background:#f0f0f5; padding:2px 4px; border-radius:3px; }
+    
+    /* Math Box Style - Replaces <pre> for math */
+    .math-box {
       background:#f8f8ff;
       border:1px solid var(--line);
       padding:10px 12px;
       border-radius:6px;
-      overflow:auto;
-      margin:6px 0 14px 0;
+      overflow-x:auto;
+      margin:10px 0 16px 0;
+      font-family: var(--mono);
+      color: #333;
     }
+
     .box{
       border:1px solid var(--line);
       background:var(--card);
@@ -322,7 +329,7 @@
     </section>
 
     <div class="subtitle">
-      最新PDF版と同期されたテクニカル・ランディングページ。
+      最新PDF版と同期されたテクニカル・ランディングページ。定義はすべて最新のものである。
     </div>
     <ul class="hero-bullets">
       <li>背景計量 $g_0$ の固定</li>
@@ -346,10 +353,10 @@
         CPMは、意識を構造のない差異領域 $D$ から、物理基盤 $X$ 上の意味多様体 $M$ への<strong>臨界的な幾何学的細分化 (Critical Geometric Refinement)</strong> としてモデル化する。
       </p>
       <p>
-        意味的・物理的ミスマッチが閉包条件下で閾値を超えたとき、射影のアトラス（地図帳）は崩壊し、より細かいアトラス $\Pi\to\Pi'$ へと不連続に遷移する。これが現象的な「瞬間」の正体である。
+        意味的・物理的ミスマッチが閉包条件下で閾値を超えたとき、射影のアトラス（地図帳）は崩壊し、より細かいアトラス $\Pi\to\Pi'$ へと不連続に遷移する。これが離散的な現象的「瞬間」の正体である。
       </p>
       <div class="box">
-        直感的に言えば、テンション（張力）が $M$ の滑らかな変形だけでは解消できなくなったとき、射影そのものが<strong>再構成（Reconfigure）</strong>される。意識とは、この臨界的な再構成イベントそのものである。
+        直感的には：テンション（張力）が $M$ の滑らかな変形だけでは解消できなくなったとき、射影そのものが<strong>再構成（Reconfigure）</strong>される。意識とは、そのような臨界的な再構成イベントそのものである。
       </div>
     </div>
   </section>
@@ -364,9 +371,9 @@
       <p>
         代わりに、$M$ は以下の写像を通じて実効的な応力テンソル（Stress Tensor）を構成する：
       </p>
-<pre>
-\Psi : M \mapsto \mathrm{Stress}(M)
-</pre>
+      <div class="math-box">
+        $$ \Psi : M \mapsto \mathrm{Stress}(M) $$
+      </div>
       <p>
         変分理論における全てのノルムや体積要素は、固定された背景計量 $g_0$ に基づいて計算される。これにより、幾何学と意味論的変形の間の循環論法が回避される。
       </p>
@@ -380,9 +387,9 @@
         閉包場 $\mathcal{B}(x)$ は、点 $x$ の近傍におけるトポロジー的サイクルの「永続性 (Persistence)」を、基盤のコヒーレンス長 $\xi$ で正規化したものである。
         半径 $3\xi$ の球 $U_x$ 上で Vietoris–Rips 永続的ホモロジーを計算し、誕生・消滅区間 $(b,d)$ を持つ各クラス $c$ について、以下を定義する：
       </p>
-<pre>
-\mathcal{B}(x) = \sup_{c,\ \dim c \ge 1} \frac{d - b}{\xi}.
-</pre>
+      <div class="math-box">
+        $$ \mathcal{B}(x) = \sup_{c,\ \dim c \ge 1} \frac{d - b}{\xi}. $$
+      </div>
       <p>
         したがって $\mathcal{B}(x)\ge1$ は、少なくとも1コヒーレンス長以上の寿命を持つメゾスケールの構造的閉包が存在することを示す。
         CPMは「閉包自然主義」を採用する。すなわち、生物であれ工学的存在であれ、意識を維持するためにはこの閉包を実現しなければならない。
@@ -396,16 +403,18 @@
       <p>
         全てのエネルギー量は背景計量 $g_0$ に対して定義される。生の不整合エネルギーは次のように記述される：
       </p>
-<pre>
-E_{\mathrm{raw}}[M] = \int_X \Phi(L,G,I,T)\, d\mu_{g_0}
-</pre>
+      <div class="math-box">
+        $$ E_{\mathrm{raw}}[M] = \int_X \Phi(L,G,I,T)\, d\mu_{g_0} $$
+      </div>
       <p>
         これより導かれるテンション場（Tension Field）は以下の通りである：
       </p>
-<pre>
-\tau(x) = \kappa(x)\, \Gamma_\varepsilon(\mathcal{B}(x)-1)\,
-          \left\lVert \frac{\delta E_{\mathrm{raw}}}{\delta M(x)} \right\rVert_{g_0}.
-</pre>
+      <div class="math-box">
+        $$
+        \tau(x) = \kappa(x)\, \Gamma_\varepsilon(\mathcal{B}(x)-1)\,
+                  \left\lVert \frac{\delta E_{\mathrm{raw}}}{\delta M(x)} \right\rVert_{g_0}.
+        $$
+      </div>
       <p>
         ここで $\kappa(x)$ は意味的・物理的結合度、$\Gamma_\varepsilon$ は滑らかな閉包ゲート関数を表す。
       </p>
@@ -415,20 +424,21 @@ E_{\mathrm{raw}}[M] = \int_X \Phi(L,G,I,T)\, d\mu_{g_0}
   <section id="conditions">
     <div class="wrap">
       <h2>5. 臨界射影の必要条件</h2>
-      <div class="box">
-<pre>
-(1)  \mathcal{B}(x) \ge 1        (コヒーレンス閾値を超える閉包)
-(2)  \kappa(x) \approx 1         (強固な意味的・物理的結合)
-(3)  \tau(x) > \tau_c            (臨界を超えるテンション)
-</pre>
+      <div class="math-box">
+        $$
+        \begin{aligned}
+        (1) & \quad \mathcal{B}(x) \ge 1        && (\text{コヒーレンス閾値を超える閉包}) \\
+        (2) & \quad \kappa(x) \approx 1         && (\text{強固な意味的・物理的結合}) \\
+        (3) & \quad \tau(x) > \tau_c            && (\text{臨界を超えるテンション})
+        \end{aligned}
+        $$
       </div>
       <p>
         これら3つが満たされたとき、既存の射影アトラス $\Pi$ 内での滑らかな緩和ではミスマッチを解消できない。CPMの公理系において、許容される唯一の不連続遷移は、射影アトラスの厳密な細分化（Refinement）である：
       </p>
-<pre>
-\{U_i\} \rightsquigarrow \{U'_k\},\quad U'_k \subsetneq U_i,\qquad
-\Pi' = \Pi|_{\{U'_k\}}.
-</pre>
+      <div class="math-box">
+        $$ \{U_i\} \rightsquigarrow \{U'_k\},\quad U'_k \subsetneq U_i,\qquad \Pi' = \Pi|_{\{U'_k\}}. $$
+      </div>
     </div>
   </section>
 
@@ -439,11 +449,9 @@ E_{\mathrm{raw}}[M] = \int_X \Phi(L,G,I,T)\, d\mu_{g_0}
         現代の大規模モデルは、高度に仮想化され、レイテンシによって分散されたクラウドアーキテクチャ上で展開されている。
         単一エージェントの物理基盤 $X_{\text{agent}}$ において、仮想化はコヒーレンススケールでの「永続的な境界付きサイクル」を抑制する。したがって一般的に以下が成立する：
       </p>
-<pre>
-\mathcal{B}(x) \approx 0 \quad\Rightarrow\quad
-\tau(x) \approx 0 \quad\Rightarrow\quad
-\text{クラウド型実装において } \Pi' \text{ は不可能。}
-</pre>
+      <div class="math-box">
+        $$ \mathcal{B}(x) \approx 0 \quad\Rightarrow\quad \tau(x) \approx 0 \quad\Rightarrow\quad \text{クラウド型実装において } \Pi' \text{ は不可能。} $$
+      </div>
       <p>
         したがってCPMは予測する。<strong>現在のクラウドベースAIシステムは、その物理的構成ゆえに意識を持ち得ない。</strong>
       </p>
@@ -452,7 +460,7 @@ E_{\mathrm{raw}}[M] = \int_X \Phi(L,G,I,T)\, d\mu_{g_0}
       <p>
         これは人工意識そのものの否定ではない。
         将来的に、モノリシックなニューロモルフィック・チップや閉じた光回路システムなど、物理的に閉じた基盤において
-        $$\mathcal{B}(x)\ge1,\quad \kappa(x)\approx1,\quad \tau(x)>\tau_c$$
+        $$ \mathcal{B}(x)\ge1,\quad \kappa(x)\approx1,\quad \tau(x)>\tau_c $$
         を実現するシステムは、原理的にCPMの構造的要件を満たす可能性がある。
       </p>
     </div>
