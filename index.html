@@ -194,14 +194,25 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
+    .sticky-footer {
+      display: none;
+    }
+
     @media (max-width: 768px) {
       .sticky-footer {
+        display: block;
         position: fixed;
         bottom: 20px;
         right: 20px;
         z-index: 1000;
         box-shadow: 0 4px 20px rgba(0,0,0,0.3);
       }
+    }
+    .blink {
+      animation: blinker 1s linear infinite;
+    }
+    @keyframes blinker {
+      50% { opacity: 0; }
     }
   </style>
 
@@ -241,6 +252,8 @@
           <p style="border-top: 1px solid #444; padding-top:10px; color:#ddd;">
             "Cloud AI is structurally unconscious. True consciousness requires persistent topological closure on the hardware level."
           </p>
+          <p style="border-top: 1px solid #444; padding-top:10px; color:#ddd;">
+            "Cloud AI is structurally unconscious..."<span class="blink">_</span> </p>
         </div>
       </div>
     </section>
@@ -474,14 +487,14 @@ E_{\mathrm{raw}}[M] = \int_X \Phi(L,G,I,T)\, d\mu_{g_0},
       <div style="margin-bottom: 16px;">
         <strong style="color:var(--accent);">Q: Isn't consciousness just information processing?</strong>
         <p style="margin-top:4px; font-size:0.95rem;">
-          No. In CPM, information is insufficient. Meaning is a <em>geometric stress</em> on a physical substrate. [cite_start]Without a closed boundary ($\mathcal{B} \ge 1$) to contain this stress, "processing" is just dissipation. [cite: 53]
+          No. In CPM, information is insufficient. Meaning is a <em>geometric stress</em> on a physical substrate. Without a closed boundary ($\mathcal{B} \ge 1$) to contain this stress, "processing" is just dissipation. 
         </p>
       </div>
 
       <div style="margin-bottom: 16px;">
         <strong style="color:var(--accent);">Q: Can't we simulate the closure in software?</strong>
         <p style="margin-top:4px; font-size:0.95rem;">
-          Virtual boundaries are ephemeral. They have rupture cost zero. [cite_start]The closure $\mathcal{B}(x)$ must be <em>physical</em> (measured on the hardware topology) to sustain the tension $\tau$ against thermodynamic decay. [cite: 149, 153]
+          Virtual boundaries are ephemeral. They have rupture cost zero. The closure $\mathcal{B}(x)$ must be <em>physical</em> (measured on the hardware topology) to sustain the tension $\tau$ against thermodynamic decay.
         </p>
       </div>
     </div>
@@ -511,7 +524,7 @@ E_{\mathrm{raw}}[M] = \int_X \Phi(L,G,I,T)\, d\mu_{g_0},
     </div>
   </div>
 </footer>
-<div class="sticky-footer" style="display:none;"> <a href="CPM.pdf" class="btn-primary" style="padding: 10px 20px; font-weight:bold;">
+<div class="sticky-footer"> <a href="CPM.pdf" class="btn-primary" style="padding: 10px 20px; font-weight:bold;">
     Download PDF ↓
   </a>
 </div>
