@@ -1,162 +1,327 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Eidoku — Structural Verification Gate for LLM Outputs</title>
 
-<title>Eidoku — Structural Verification Gate for LLM Reasoning</title>
+  <meta property="og:title" content="Eidoku: Structural Verification Gate" />
+  <meta property="og:description" content="Post-generation structural verification for LLM outputs. Feasibility, violation cost, explicit rejection." />
+  <meta property="og:type" content="website" />
 
-<style>
-body{
-  margin:0;
-  background:#f7f7fb;
-  font-family:system-ui;
-  line-height:1.6;
-}
-.wrap{max-width:980px;margin:auto;padding:24px;}
-h1{margin:0}
-.badge{background:#e3efff;color:#0b57d0;padding:4px 10px;border-radius:999px;font-size:.8rem}
-.alert{
-  background:#111;color:#00ff41;
-  font-family:monospace;
-  padding:14px;
-  border-left:5px solid red;
-  margin:16px 0;
-}
-.box{
-  background:white;
-  border:1px solid #ddd;
-  padding:14px;
-  border-radius:8px;
-  margin:12px 0;
-}
-code{background:#eee;padding:2px 4px;border-radius:4px}
-a{color:#0b57d0;text-decoration:none}
-.btn{
- display:inline-block;
- background:#111;
- color:white;
- padding:8px 14px;
- border-radius:8px;
- margin-right:8px;
-}
-</style>
+  <style>
+    :root{
+      --fg:#111;
+      --muted:#666;
+      --bg:#f7f7fb;
+      --card:#ffffff;
+      --line:#e3e3ee;
+      --accent:#0b57d0;
+      --accent-soft:#e3efff;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0; background:var(--bg); color:var(--fg);
+      font-family:var(--sans); line-height:1.65;
+    }
+    a{ color:var(--accent); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    header{
+      padding:28px 16px 16px 16px;
+      background:radial-gradient(circle at 0 0, #e8f0ff 0, #f7f7fb 55%, #ffffff 100%);
+      border-bottom:1px solid var(--line);
+      position: relative;
+    }
+    .wrap{ max-width:1040px; margin:0 auto; }
+
+    .lang-switch {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      background: rgba(255,255,255,0.8);
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+    }
+
+    h1{ font-size:2.2rem; margin:0 0 6px 0; }
+    .subtitle{ font-size:1.05rem; color:var(--muted); margin-bottom:10px; }
+
+    .badge{
+      display:inline-block;
+      padding:3px 10px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:var(--accent);
+      font-size:0.8rem;
+      margin-bottom:10px;
+    }
+    .tagline {
+      font-family: var(--mono);
+      font-size: 1.15rem;
+      color: #111;
+      background-color: #e3efff;
+      display: inline-block;
+      padding: 2px 8px;
+      margin: 6px 0 12px 0;
+    }
+
+    .meta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      margin-bottom:8px;
+      font-size:0.9rem;
+      color:var(--muted);
+    }
+
+    .btn{
+      display:inline-block;
+      padding:7px 14px;
+      border-radius:999px;
+      background:#000;
+      color:#fff;
+      font-size:0.9rem;
+      font-weight:600;
+      border:1px solid #333;
+      text-decoration:none;
+      line-height:1;
+    }
+    .btn:hover{ text-decoration:none; background:#111; }
+    .btn-blue{
+      background:var(--accent);
+      border-color:var(--accent);
+    }
+    .btn-blue:hover{ background:#0a4cc0; }
+
+    main{ padding:18px 16px 42px 16px; }
+    section{ max-width:1040px; margin:0 auto 26px auto; }
+
+    h2{
+      font-size:1.35rem;
+      border-left:4px solid #000;
+      padding-left:10px;
+      margin:0 0 10px 0;
+    }
+    h3{ font-size:1.08rem; margin-top:16px; margin-bottom:4px; }
+
+    p{ margin:6px 0 10px 0; }
+    ul{ margin:6px 0 10px 20px; }
+
+    code { font-family:var(--mono); font-size:0.95rem; background:#f0f0f5; padding:2px 4px; border-radius:3px; }
+
+    .box{
+      border:1px solid var(--line);
+      background:var(--card);
+      padding:12px 14px;
+      border-radius:10px;
+      margin:10px 0 16px 0;
+    }
+
+    .math-box{
+      background:#f8f8ff;
+      border:1px solid var(--line);
+      padding:10px 12px;
+      border-radius:8px;
+      overflow-x:auto;
+      margin:10px 0 16px 0;
+      font-family: var(--mono);
+      color:#333;
+    }
+
+    .terminal{
+      background: #101010;
+      color: #d7ffd7;
+      border-left: 5px solid #d93025;
+      font-family: var(--mono);
+      padding: 14px 16px;
+      border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+      margin: 12px 0 18px 0;
+    }
+    .terminal .h{
+      color:#ff6b6b;
+      margin:0 0 6px 0;
+      text-transform:uppercase;
+      letter-spacing:0.8px;
+      font-size:0.95rem;
+    }
+    .terminal p{ margin:4px 0; }
+    .terminal code{
+      background: transparent;
+      padding: 0;
+      font-weight: 800;
+    }
+    .terminal code.ok { color:#00ff41; }
+    .terminal code.ng { color:#ff4444; }
+    .terminal code.unk{ color:#ffaa00; }
+
+    footer{
+      border-top:1px solid var(--line);
+      padding:18px 16px 28px 16px;
+      background:#fbfbff;
+      font-size:0.9rem;
+      color:var(--muted);
+    }
+    footer .wrap{
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+  </style>
 </head>
 
 <body>
-<div class="wrap">
 
-<span class="badge">Eidoku Gate</span>
+<header>
+  <div class="lang-switch">
+    <b>EN</b> | <a href="eidoku_ja.html" style="color:#666;">JA</a>
+  </div>
 
-<h1>Eidoku</h1>
-<p><b>A Neuro-Symbolic Verification Gate for LLM Reasoning</b></p>
+  <div class="wrap">
+    <div class="badge">Eidoku Gate</div>
+    <h1>Eidoku</h1>
+    <div class="tagline">Feasibility gate for generated reasoning.</div>
 
-<div class="meta-row">
-  <span>Author: Shinobu Miya</span>
-  <span class="link-inline">ORCID: <a href="https://orcid.org/0009-0002-0322-7342" target="_blank">0009-0002-0322-7342</a></span>
-  <span class="link-inline">X: <a href="https://x.com/ShinobuMiyaCPM" target="_blank">@ShinobuMiyaCPM</a></span>
-</div>
+    <div class="meta-row">
+      <span>Author: Shinobu Miya</span>
+      <span>ORCID: <a href="#" target="_blank">0009-0002-0322-7342</a></span>
+      <span>X: <a href="https://x.com/ShinobuMiyaCPM" target="_blank">@ShinobuMiyaCPM</a></span>
+    </div>
 
-<div class="alert">
-> EIDOKU ALERT<br>
-> Likelihood ≠ Validity<br>
-> Semantic fluency does not imply structural feasibility<br>
-> Rejection is a first-class outcome
-</div>
+    <div class="terminal" aria-label="eidoku alert">
+      <div class="h">&gt; EIDOKU ALERT: STRUCTURAL FEASIBILITY</div>
+      <p>&gt; Likelihood ≠ Validity</p>
+      <p>&gt; Hallucination is treated as a <b>structural failure</b> (constraint violation)</p>
+      <p>&gt; Outcome is explicit: <code class="ok">ACCEPT</code> / <code class="ng">REJECT</code> / <code class="unk">UNK</code></p>
+    </div>
 
-<p>
-Eidoku is a lightweight <b>System-2 verification gate</b> for LLM outputs.
-It evaluates generated reasoning sequences using <b>structural feasibility</b>,
-not probability.
-</p>
+    <div style="
+      margin-top: 0.6rem;
+      padding: 0.8rem 0 0.2rem 0;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      gap: 0.7rem;
+      align-items: center;
+      flex-wrap: wrap;
+    ">
+      <a class="btn btn-blue" href="https://doi.org/10.48550/arXiv.2512.20664" target="_blank">arXiv</a>
+      <!-- GitHub repo -->
+      <a class="btn" href="https://github.com/ShinobuMiya/Eidoku" target="_blank">Code</a>
+      <a class="btn" href="../system2/system2.html">System-2 FW</a>
+    </div>
 
-<p>
-Hallucinations are treated as <b>structural failures</b>:
-statements that cannot be embedded into the contextual semantic structure
-without excessive deformation.
-</p>
+    <div class="subtitle" style="margin-top:10px;">
+      Eidoku is a post-generation verification gate that evaluates <b>structural feasibility</b> of LLM outputs under explicit constraints.
+      When no candidate satisfies the constraints, returning <code>UNK</code> is a valid outcome.
+    </div>
 
-<div class="box">
-<b>Core principle</b><br><br>
-Verification is formulated as a <i>constraint satisfaction problem</i> over semantic structure.
-Candidates exceeding a context-calibrated Violation Cost threshold are deterministically rejected.
-</div>
+    <ul style="margin-top:4px;">
+      <li><b>Optimization-independent:</b> no retraining, no decoding modification</li>
+      <li><b>Violation cost:</b> quantify local structural inconsistency</li>
+      <li><b>Deterministic gate:</b> accept/reject/unk under a declared profile</li>
+      <li><b>Abstention:</b> prefer null over confident fabrication</li>
+    </ul>
+  </div>
+</header>
 
-<ul>
-<li>Generation and verification are optimization-independent</li>
-<li>Verification operates on feasibility, not likelihood</li>
-<li>Rejection is explicit (no “least bad” fallback)</li>
-<li>Thresholds are calibrated per context (not learned)</li>
-</ul>
+<main>
 
-<h2>What Eidoku Checks</h2>
+  <section id="overview">
+    <div class="wrap">
+      <h2>1. Overview</h2>
+      <p>
+        Eidoku evaluates generated outputs as candidates in a constraint system.
+        Its objective is not “truth in general” but <b>feasibility under stated constraints</b>.
+        This makes hallucinations visible as violations rather than “low-confidence answers”.
+      </p>
 
-<p>
-Each reasoning step is evaluated via an additive Violation Cost composed of:
-</p>
+      <div class="box">
+        <b>Design goal:</b> replace “plausible text” with an explicit decision boundary:
+        outputs that do not satisfy constraints are deterministically rejected (or marked UNK).
+      </div>
+    </div>
+  </section>
 
-<ul>
-<li><b>Structural cost</b> — graph connectivity (unsupported entity transitions)</li>
-<li><b>Geometric cost</b> — deviation from the local embedding manifold</li>
-<li><b>Logical cost</b> — entailment / contradiction via NLI</li>
-</ul>
+  <section id="what">
+    <div class="wrap">
+      <h2>2. What Eidoku Checks</h2>
+      <p>
+        Eidoku assigns a violation cost to each candidate by combining multiple structural signals.
+        (Exact definitions are in the paper; this page provides the minimal operational picture.)
+      </p>
 
-<p>
-These proxies are statistically normalized and combined into:
-</p>
+      <div class="box">
+        <ul style="margin:0 0 0 18px;">
+          <li><b>Structural</b>: unsupported entity transitions / broken dependency edges</li>
+          <li><b>Geometric</b>: abnormal deformation in local embedding neighborhood</li>
+          <li><b>Logical</b>: entailment/contradiction signals (e.g., NLI-style checks)</li>
+        </ul>
+      </div>
 
-<div class="box">
-J(S) = Σ τ(Sᵢ, Sⱼ)
-</div>
+      <div class="math-box">
+        Candidate score (sketch): &nbsp; J = Σ (local violation cost) &nbsp; → compare to τ<sub>c</sub> / threshold
+      </div>
+    </div>
+  </section>
 
-<p>
-A candidate is rejected if any local junction exceeds the calibrated critical threshold τc.
-</p>
+  <section id="pipeline">
+    <div class="wrap">
+      <h2>3. Pipeline Role</h2>
+      <div class="box">
+        System-1 (LLM) generates candidates<br/>
+        ↓<br/>
+        Eidoku computes violation costs under an active profile<br/>
+        ↓<br/>
+        <b>Gate:</b> accept if feasible, otherwise reject / UNK<br/>
+        ↓<br/>
+        Pass accepted outputs to downstream execution / delivery
+      </div>
 
-<h2>Architecture</h2>
+      <p>
+        Eidoku is designed to plug into System-2 FW as a verifier module,
+        but it can also be used as a standalone gate for LLM outputs.
+      </p>
+    </div>
+  </section>
 
-<div class="box">
-System-1 (LLM) generates candidates<br>
-↓<br>
-Eidoku (System-2) computes Violation Cost<br>
-↓<br>
-Reject if ∃ step > τc<br>
-↓<br>
-Select lowest-cost accepted candidate<br>
-(or return NULL)
-</div>
+  <section id="claims">
+    <div class="wrap">
+      <h2>4. Claims</h2>
+      <div class="box">
+        <ul style="margin:0 0 0 18px;">
+          <li>Eidoku enforces feasibility constraints post-generation (model-agnostic)</li>
+          <li>Rejection/abstention is an explicit, valid output state</li>
+          <li>Hallucinations are operationalized as structural violations</li>
+        </ul>
+      </div>
 
-<p>
-No gradients, no retraining, no decoding modification.
-Eidoku attaches to any LLM as a post-generation gate.
-</p>
+      <div class="box">
+        <b>Non-claims:</b> Eidoku does not prove truth in general, and does not replace domain expertise.
+        It is a decision gate under explicit profiles.
+      </div>
+    </div>
+  </section>
 
-<h2>Claims / Non-Claims</h2>
+</main>
 
-<ul>
-<li>Eidoku does NOT estimate truth</li>
-<li>Eidoku does NOT improve generation</li>
-<li>Eidoku enforces contextual structural closure</li>
-<li>Eidoku rejects smooth falsehoods that probability cannot detect</li>
-</ul>
+<footer>
+  <div class="wrap">
+    <div>Author: Shinobu Miya.</div>
+    <div>
+      <a href="../">CPM</a> |
+      <a href="../system2/system2.html">System-2</a> |
+      <a href="../catelingo/">Catelingo</a>
+    </div>
+  </div>
+</footer>
 
-<p>
-If all candidates violate structure, Eidoku returns a null set.
-This is intentional.
-</p>
-
-<h2>Links</h2>
-
-<a class="btn" href="../system2/system2.html">System-2 Framework</a>
-<a class="btn" href="https://github.com/ShinobuMiya/Eidoku">Code</a>
-<a class="btn" href="Eidoku.pdf">Paper (PDF)</a>
-
-<br><br>
-
-<p style="font-size:.85rem;color:#666">
-Eidoku is part of the CPM / System-2 / Catelingo stack for post-generation verification.
-</p>
-
-</div>
 </body>
 </html>
