@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>Eidoku — Structural Verification Gate for LLM Reasoning</title>
+
+<style>
+body{
+  margin:0;
+  background:#f7f7fb;
+  font-family:system-ui;
+  line-height:1.6;
+}
+.wrap{max-width:980px;margin:auto;padding:24px;}
+h1{margin:0}
+.badge{background:#e3efff;color:#0b57d0;padding:4px 10px;border-radius:999px;font-size:.8rem}
+.alert{
+  background:#111;color:#00ff41;
+  font-family:monospace;
+  padding:14px;
+  border-left:5px solid red;
+  margin:16px 0;
+}
+.box{
+  background:white;
+  border:1px solid #ddd;
+  padding:14px;
+  border-radius:8px;
+  margin:12px 0;
+}
+code{background:#eee;padding:2px 4px;border-radius:4px}
+a{color:#0b57d0;text-decoration:none}
+.btn{
+ display:inline-block;
+ background:#111;
+ color:white;
+ padding:8px 14px;
+ border-radius:8px;
+ margin-right:8px;
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<span class="badge">Eidoku Gate</span>
+
+<h1>Eidoku</h1>
+<p><b>A Neuro-Symbolic Verification Gate for LLM Reasoning</b></p>
+
+<div class="meta-row">
+  <span>Author: Shinobu Miya</span>
+  <span class="link-inline">ORCID: <a href="https://orcid.org/0009-0002-0322-7342" target="_blank">0009-0002-0322-7342</a></span>
+  <span class="link-inline">X: <a href="https://x.com/ShinobuMiyaCPM" target="_blank">@ShinobuMiyaCPM</a></span>
+</div>
+
+<div class="alert">
+> EIDOKU ALERT<br>
+> Likelihood ≠ Validity<br>
+> Semantic fluency does not imply structural feasibility<br>
+> Rejection is a first-class outcome
+</div>
+
+<p>
+Eidoku is a lightweight <b>System-2 verification gate</b> for LLM outputs.
+It evaluates generated reasoning sequences using <b>structural feasibility</b>,
+not probability.
+</p>
+
+<p>
+Hallucinations are treated as <b>structural failures</b>:
+statements that cannot be embedded into the contextual semantic structure
+without excessive deformation.
+</p>
+
+<div class="box">
+<b>Core principle</b><br><br>
+Verification is formulated as a <i>constraint satisfaction problem</i> over semantic structure.
+Candidates exceeding a context-calibrated Violation Cost threshold are deterministically rejected.
+</div>
+
+<ul>
+<li>Generation and verification are optimization-independent</li>
+<li>Verification operates on feasibility, not likelihood</li>
+<li>Rejection is explicit (no “least bad” fallback)</li>
+<li>Thresholds are calibrated per context (not learned)</li>
+</ul>
+
+<h2>What Eidoku Checks</h2>
+
+<p>
+Each reasoning step is evaluated via an additive Violation Cost composed of:
+</p>
+
+<ul>
+<li><b>Structural cost</b> — graph connectivity (unsupported entity transitions)</li>
+<li><b>Geometric cost</b> — deviation from the local embedding manifold</li>
+<li><b>Logical cost</b> — entailment / contradiction via NLI</li>
+</ul>
+
+<p>
+These proxies are statistically normalized and combined into:
+</p>
+
+<div class="box">
+J(S) = Σ τ(Sᵢ, Sⱼ)
+</div>
+
+<p>
+A candidate is rejected if any local junction exceeds the calibrated critical threshold τc.
+</p>
+
+<h2>Architecture</h2>
+
+<div class="box">
+System-1 (LLM) generates candidates<br>
+↓<br>
+Eidoku (System-2) computes Violation Cost<br>
+↓<br>
+Reject if ∃ step > τc<br>
+↓<br>
+Select lowest-cost accepted candidate<br>
+(or return NULL)
+</div>
+
+<p>
+No gradients, no retraining, no decoding modification.
+Eidoku attaches to any LLM as a post-generation gate.
+</p>
+
+<h2>Claims / Non-Claims</h2>
+
+<ul>
+<li>Eidoku does NOT estimate truth</li>
+<li>Eidoku does NOT improve generation</li>
+<li>Eidoku enforces contextual structural closure</li>
+<li>Eidoku rejects smooth falsehoods that probability cannot detect</li>
+</ul>
+
+<p>
+If all candidates violate structure, Eidoku returns a null set.
+This is intentional.
+</p>
+
+<h2>Links</h2>
+
+<a class="btn" href="../system2/system2.html">System-2 Framework</a>
+<a class="btn" href="https://github.com/ShinobuMiya/Eidoku">Code</a>
+<a class="btn" href="Eidoku.pdf">Paper (PDF)</a>
+
+<br><br>
+
+<p style="font-size:.85rem;color:#666">
+Eidoku is part of the CPM / System-2 / Catelingo stack for post-generation verification.
+</p>
+
+</div>
+</body>
+</html>
