@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Catelingo — Constraint-Based Semantic Validity Verification</title>
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Catelingo: Constraint-Based Semantic Validity Verification" />
+  <meta property="og:description" content="Semantic validity as constraint satisfiability (SAT/UNSAT/UNKNOWN). No reasoning chains. No knowledge retrieval. No retraining." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <style>
+    :root{
+      --fg:#111;
+      --muted:#666;
+      --bg:#f7f7fb;
+      --card:#ffffff;
+      --line:#e3e3ee;
+      --accent:#0b57d0;
+      --accent-soft:#e3efff;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0; background:var(--bg); color:var(--fg);
+      font-family:var(--sans); line-height:1.65;
+    }
+    a{ color:var(--accent); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    header{
+      padding:26px 16px 14px 16px;
+      background:radial-gradient(circle at 0 0, #e8f0ff 0, #f7f7fb 55%, #ffffff 100%);
+      border-bottom:1px solid var(--line);
+      position: relative;
+    }
+    .wrap{ max-width:1040px; margin:0 auto; }
+
+    .crumb{
+      display:inline-block;
+      font-size:0.92rem;
+      margin-bottom:10px;
+    }
+    .crumb a{
+      display:inline-block;
+      background:#eef3ff;
+      border:1px solid #dde6ff;
+      padding:3px 10px;
+      border-radius:999px;
+      font-family:var(--mono);
+    }
+
+    .lang-switch {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      background: rgba(255,255,255,0.85);
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+
+    h1{
+      font-size:2.2rem; margin:0 0 6px 0;
+      letter-spacing: -0.3px;
+    }
+    .subtitle{
+      font-size:1.05rem; color:var(--muted); margin-bottom:10px;
+    }
+
+    .tagline {
+      font-family: var(--mono);
+      font-size: 1.05rem;
+      color: #111;
+      background-color: #e3efff;
+      display: inline-block;
+      padding: 2px 8px;
+      margin: 6px 8px 12px 0;
+      border-radius: 6px;
+    }
+
+    .meta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      margin:8px 0 10px 0;
+      font-size:0.92rem;
+      color:var(--muted);
+    }
+    .meta-row span{ margin-right:6px; }
+
+    .btn-row{
+      margin-top: 12px;
+      padding: 0.8rem 0 0 0;
+      border-top: 1px solid #e5e7eb;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+    .btn{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid transparent;
+      font-size:0.92rem;
+      font-weight:600;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .btn:hover{ text-decoration:none; }
+    .btn-primary{
+      background:var(--accent); color:#fff;
+    }
+    .btn-primary:hover{ background:#0a4cc0; }
+    .btn-ghost{
+      background:#fff; border:1px solid #dfe3f0; color:#111;
+    }
+    .btn-ghost:hover{ background:#f6f8ff; }
+    .btn-dark{
+      background:#000; color:#fff; border:1px solid #222;
+    }
+    .btn-dark:hover{ background:#111; }
+
+    main{ padding:18px 16px 42px 16px; }
+    section{ max-width:1040px; margin:0 auto 26px auto; }
+    h2{
+      font-size:1.35rem;
+      border-left:4px solid #000;
+      padding-left:10px;
+      margin:0 0 10px 0;
+    }
+    h3{
+      font-size:1.05rem;
+      margin:14px 0 6px 0;
+    }
+    p{ margin:6px 0 10px 0; }
+    ul{ margin:6px 0 10px 22px; }
+    code{
+      font-family:var(--mono);
+      font-size:0.95rem;
+      background:#f0f0f5;
+      padding:2px 4px;
+      border-radius:4px;
+    }
+
+    .box{
+      border:1px solid var(--line);
+      background:var(--card);
+      padding:14px 16px;
+      border-radius:12px;
+      margin:12px 0 14px 0;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.06);
+    }
+    .math-box{
+      background:#f8f8ff;
+      border:1px solid var(--line);
+      padding:10px 12px;
+      border-radius:10px;
+      overflow-x:auto;
+      margin:10px 0 14px 0;
+      font-family: var(--mono);
+      color: #333;
+    }
+
+    .terminal-alert {
+      background: #141414;
+      color: #00ff41;
+      border-left: 6px solid #d93025;
+      font-family: var(--mono);
+      padding: 16px 18px;
+      border-radius: 12px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.22);
+      margin: 14px 0 14px 0;
+    }
+    .terminal-alert .title{
+      color:#ff5050;
+      margin:0 0 10px 0;
+      font-weight:800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .terminal-alert .line{ margin:6px 0; }
+    .pill{
+      display:inline-block;
+      font-family:var(--mono);
+      font-size:0.88rem;
+      padding:2px 8px;
+      border-radius:999px;
+      border:1px solid #2a2a2a;
+      background:#1b1b1b;
+      color:#d8ffd8;
+      vertical-align:middle;
+    }
+    .pill.bad{ color:#ffd8d8; }
+    .pill.neu{ color:#e6e6ff; }
+
+    footer{
+      border-top:1px solid var(--line);
+      padding:18px 16px 28px 16px;
+      background:#fbfbff;
+      font-size:0.92rem;
+      color:var(--muted);
+    }
+    footer .wrap{
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    /* Mobile helper: sticky download */
+    .sticky-footer { display:none; }
+    @media (max-width: 768px) {
+      .sticky-footer {
+        display: block;
+        position: fixed;
+        bottom: 18px;
+        right: 18px;
+        z-index: 1000;
+        box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+      }
+    }
+  </style>
+
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+
+<body>
+<header>
+  <div class="lang-switch">
+    <b>EN</b> | <a href="catelingo_ja.html" style="color:#666;">JA</a>
+  </div>
+
+  <div class="wrap">
+    <div class="crumb">
+      <a href="../index.html">CPM-site</a>
+    </div>
+
+    <h1>Catelingo</h1>
+    <div class="subtitle">Constraint-Based Semantic Validity Verification for Language Models</div>
+
+    <div class="tagline">Semantic validity = constraint satisfiability</div>
+    <div class="tagline">SAT / UNSAT / UNKNOWN (no forced “best guess”)</div>
+
+    <div class="meta-row">
+      <span>Author: Shinobu Miya</span>
+      <span>ORCID: <a href="https://orcid.org/0009-0002-0322-7342" target="_blank">0009-0002-0322-7342</a></span>
+      <span>X: <a href="https://x.com/ShinobuMiyaCPM" target="_blank">@ShinobuMiyaCPM</a></span>
+    </div>
+
+    <div class="terminal-alert">
+      <div class="title">&gt; CATELINGO ALERT: SEMANTIC NO-GO DETECTION</div>
+      <div class="line">&gt; Fluency ≠ Semantic validity</div>
+      <div class="line">&gt; No reasoning chains. No fact retrieval. No retraining.</div>
+      <div class="line">
+        &gt; Verdicts:
+        <span class="pill">SAT → ACCEPT</span>
+        <span class="pill bad">UNSAT → REJECT</span>
+        <span class="pill neu">UNKNOWN → defer</span>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <a class="btn btn-dark" href="Catelingo.pdf" target="_blank">PDF (Catelingo)</a>
+      <a class="btn btn-primary" href="https://github.com/ShinobuMiya/Catelingo" target="_blank">GitHub</a>
+
+      <!-- If you have a Zenodo DOI for Catelingo, paste it here:
+      <a class="btn btn-ghost" href="https://doi.org/10.xxxx/zenodo.xxxxxxxx" target="_blank">DOI</a>
+      -->
+      <a class="btn btn-ghost" href="#how" style="color:#111;">How it works</a>
+    </div>
+
+    <p style="margin-top:12px; color:var(--muted);">
+      A compact landing page synchronized with the paper: semantic failures like temporal impossibilities,
+      numerical range violations, and type clashes are detected as explicit constraint unsatisfiability. :contentReference[oaicite:0]{index=0}
+    </p>
+
+    <ul>
+      <li><b>Targets</b>: semantic no-go cases without multi-step reasoning or missing facts :contentReference[oaicite:1]{index=1}</li>
+      <li><b>Method</b>: sense-level constraints + propagation on dependency edges (AC-3 style) :contentReference[oaicite:2]{index=2}</li>
+      <li><b>Domain adaptation</b>: switch constraint profiles (not model training) :contentReference[oaicite:3]{index=3}</li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <section id="overview">
+    <div class="wrap">
+      <h2>1. Overview</h2>
+      <p>
+        Catelingo treats <b>semantic validity</b> as a structural property: a sentence is valid iff the
+        <b>semantic constraints induced by the sentence are satisfiable</b>. :contentReference[oaicite:4]{index=4}
+      </p>
+
+      <div class="box">
+        <b>Design goal</b>: reject only when the induced constraints are jointly impossible (UNSAT),
+        preserve ambiguity when at least one interpretation remains feasible (SAT), and avoid forced guesses (UNKNOWN). :contentReference[oaicite:5]{index=5}
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <h2>2. How it works</h2>
+
+      <div class="box">
+        <h3>Pipeline (conceptual)</h3>
+        <div class="math-box">
+          LLM output → parse/dependencies → sense candidates (ambiguous) →<br/>
+          instantiate constraints (type/range/temporal/invariants) →<br/>
+          propagate constraints on dependency edges → verdict (SAT/UNSAT/UNKNOWN)
+        </div>
+        <p style="margin-bottom:0;">
+          Key point: Catelingo does not “pick the most likely meaning”. It keeps all compatible senses and rejects only if <i>all</i> paths die. :contentReference[oaicite:6]{index=6}
+        </p>
+      </div>
+
+      <div class="box">
+        <h3>Decision semantics</h3>
+        <ul>
+          <li><b>SAT</b>: at least one consistent interpretation remains → <b>ACCEPT</b></li>
+          <li><b>UNSAT</b>: all candidates eliminated by constraints → <b>REJECT</b></li>
+          <li><b>UNKNOWN</b>: underspecified variables prevent a definitive SAT/UNSAT decision → <b>defer / ask for clarification</b></li>
+        </ul>
+        <p style="margin-bottom:0;">
+          This is intentionally orthogonal to truth, likelihood, or factual correctness. :contentReference[oaicite:7]{index=7}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="constraints">
+    <div class="wrap">
+      <h2>3. What Catelingo checks</h2>
+
+      <div class="box">
+        <h3>Constraint classes (typical)</h3>
+        <ul>
+          <li><b>Temporal</b>: ordering relations (e.g., “commemorate” implies construction time ≥ event time)</li>
+          <li><b>Numerical</b>: admissible ranges (probability in [0,1], percent in [0,100], unit consistency)</li>
+          <li><b>Semantic types</b>: type compatibility and selectional restrictions</li>
+          <li><b>Basic physical/physiological invariants</b>: abstract constraints (not encyclopedic facts)</li>
+        </ul>
+        <p style="margin-bottom:0;">
+          Many hallucinations fall into these “semantic no-go” categories even without reasoning chains. :contentReference[oaicite:8]{index=8}
+        </p>
+      </div>
+
+      <div class="box">
+        <h3>Meaning as feasible region</h3>
+        <p>
+          Let a sentence induce constraints $C=\{c_1,\dots,c_n\}$. Semantic validity is:
+        </p>
+        <div class="math-box">
+          $$\text{Valid}(S)\;\Longleftrightarrow\;\text{SAT}(C)$$
+          $$\text{Invalid}(S)\;\Longleftrightarrow\;\text{UNSAT}(C)$$
+        </div>
+        <p style="margin-bottom:0;">
+          Ambiguity is acceptable: Catelingo requires non-emptiness of the feasible region, not a unique interpretation. :contentReference[oaicite:9]{index=9}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="profiles">
+    <div class="wrap">
+      <h2>4. Profiles (domain adaptation)</h2>
+
+      <div class="box">
+        <p>
+          Semantic validity is domain-relative. Catelingo makes this explicit via <b>constraint profiles</b>:
+          switch profiles to change admissibility criteria (e.g., strict finance vs generous poetry) without retraining any model. :contentReference[oaicite:10]{index=10}
+        </p>
+        <ul style="margin-bottom:0;">
+          <li><b>Profile</b> = senses + constraints + optional degeneration (metaphor) rules</li>
+          <li><b>Adaptation</b> = swap profiles at runtime</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="complexity">
+    <div class="wrap">
+      <h2>5. Complexity intuition</h2>
+      <div class="box">
+        <p>
+          Naive all-pairs semantic checking is quadratic in tokens. Catelingo propagates constraints along
+          dependency edges (typically linear in sentence length), yielding practical near-linear behavior
+          with bounded sense candidates per token. :contentReference[oaicite:11]{index=11}
+        </p>
+        <div class="math-box">
+          Naive: $O(n^2 \cdot d^2)$ &nbsp;&nbsp;→&nbsp;&nbsp; Dependency-local: $O(n \cdot d^2)$
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="relation">
+    <div class="wrap">
+      <h2>6. Relation to System-2 FW / Eidoku</h2>
+      <div class="box">
+        <ul>
+          <li><b>System-2 FW</b>: architectural separation of generation / verification / acceptance</li>
+          <li><b>Eidoku</b>: structural feasibility checking for reasoning/output structure</li>
+          <li><b>Catelingo</b>: semantic constraint satisfiability (no-go detection) even without reasoning chains</li>
+        </ul>
+        <p style="margin-bottom:0;">
+          The point is composability: structural verification and semantic constraint verification target orthogonal failure modes. :contentReference[oaicite:12]{index=12}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="links">
+    <div class="wrap">
+      <h2>Links</h2>
+      <div class="box">
+        <ul style="margin-bottom:0;">
+          <li>PDF: <a href="Catelingo.pdf" target="_blank">Catelingo.pdf</a></li>
+          <li>GitHub: <a href="https://github.com/ShinobuMiya/Catelingo" target="_blank">ShinobuMiya/Catelingo</a></li>
+          <!-- Optional: add Zenodo DOI link here if/when you have it -->
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>Author: Shinobu Miya (2025).</div>
+    <div>
+      PDF:&nbsp;<a href="Catelingo.pdf" target="_blank">download</a>
+      &nbsp;|&nbsp;
+      GitHub:&nbsp;<a href="https://github.com/ShinobuMiya/Catelingo" target="_blank">repo</a>
+      &nbsp;|&nbsp;
+      X:&nbsp;<a href="https://x.com/ShinobuMiyaCPM" target="_blank">@ShinobuMiyaCPM</a>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky-footer">
+  <a href="Catelingo.pdf" class="btn btn-primary" style="padding: 12px 18px; font-weight:800;">
+    Download PDF ↓
+  </a>
+</div>
+</body>
+</html>
